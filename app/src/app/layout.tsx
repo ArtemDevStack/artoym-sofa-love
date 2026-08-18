@@ -22,6 +22,12 @@ export const metadata: Metadata = {
   title: `${relationship.partnerA} × ${relationship.partnerB}`,
   description: "Это место существует только для нас.",
   robots: { index: false, follow: false },
+  icons: {
+    icon: [
+      { url: "/icon.svg", type: "image/svg+xml" },
+    ],
+    apple: "/icon.svg",
+  },
 };
 
 export const viewport: Viewport = {
