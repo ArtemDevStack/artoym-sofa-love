@@ -129,7 +129,7 @@ export default function Timeline() {
         <article key={event.id} data-scene={event.scene} className={styles.scene}>
           <div className={styles.inner}>
             <h3 data-t-date className={`${styles.date} display`}>
-              {event.id === "beginning" ? (
+              {event.id === "meeting" ? (
                 /* Секрет 2 — эта дата кликабельна */
                 <SecretHotspot id="secret-2" kind="text" ariaLabel="Дата, за которой что-то спрятано">
                   {event.date}
