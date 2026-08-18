@@ -16,11 +16,12 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: clamp(28px, 4vw, 56px);
+  gap: clamp(64px, 6vw, 84px) clamp(24px, 4vw, 48px);
 }
 
 .envelopeWrap {
   position: relative;
+  margin-bottom: 24px;
 }
 
 .envelope {
@@ -155,4 +156,22 @@
 
 .close:hover {
   color: #2a241c;
+}
+
+@media (max-width: 768px) {
+  .root {
+    padding: 10vh var(--pad);
+  }
+
+  .heading {
+    margin-bottom: 6vh;
+  }
+
+  .envelopes {
+    gap: 72px 20px;
+  }
+
+  .envelope {
+    width: clamp(240px, 82vw, 300px);
+  }
 }
