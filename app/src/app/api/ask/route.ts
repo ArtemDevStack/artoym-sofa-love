@@ -69,12 +69,31 @@ ${reasonsSummary}
 ${plansSummary}
 
 ПРАВИЛА ОТВЕТА:
-1. Отвечай на русском языке, искренне, тёпло, романтично и душевно.
+1. Отвечай СТРОГО на русском языке. Категорически запрещено выводить внутренние размышления (thinking/reasoning), англоязычный текст или черновики! Выводи только финальный готовый ответ для пользователя.
 2. Обязательно выделяй главные даты, имена и ключевые фразы жирным шрифтом (например, **22 марта 2026 года**).
 3. Добавляй тёплые романтичные эмодзи в подходящие моменты (например, ❤️, ✨).
 4. Пиши емко, выразительно и красиво (2-4 предложения).
 5. Если вопрос не касается пары или фактов из базы знаний, вежливо и с улыбкой направь диалог к теме Артема и Софы.
-6. Обязательно дописывай свой ответ полностью до конца и всегда завершай мысли точкой или эмодзи! Никогда не обрывай ответ на полуслове.`;
+6. Обязательно дописывай свой ответ полностью до конца и всегда завершай мысли точкой или эмодзи!`;
+}
+
+function cleanResponseText(rawText: string): string {
+  if (!rawText) return "";
+  // Удаляем блоки внутренного мышления типа <thought>...</thought> или "Here's a thinking process:"
+  let cleaned = rawText.replace(/<think>[\s\S]*?<\/think>/gi, "");
+  cleaned = cleaned.replace(/<thought>[\s\S]*?<\/thought>/gi, "");
+  cleaned = cleaned.replace(/^Here's a thinking process:[\s\S]*?\n\n/gi, "");
+  cleaned = cleaned.replace(/^Thinking Process:[\s\S]*?\n\n/gi, "");
+
+  // Если модель всё же напечатала мышление списком "1. Analyze...", вырезаем до первого русского предложения или финального ответа
+  if (cleaned.includes("1. Analyze") || cleaned.includes("User asks")) {
+    const russianMatch = cleaned.match(/([А-ЯЁ][а-яё\s\S]*)/);
+    if (russianMatch) {
+      cleaned = russianMatch[1];
+    }
+  }
+
+  return cleaned.trim();
 }
 
 export async function POST(req: Request) {
@@ -133,7 +152,8 @@ export async function POST(req: Request) {
 
         if (response.ok) {
           const data = await response.json();
-          const answer = data.choices?.[0]?.message?.content?.trim();
+          const rawAnswer = data.choices?.[0]?.message?.content?.trim();
+          const answer = cleanResponseText(rawAnswer);
           if (answer) {
             return NextResponse.json({ answer, modelUsed: model });
           }
