@@ -36,12 +36,14 @@ export default function Counter() {
       <h2 className={`${styles.heading} display`}>Мы вместе уже</h2>
 
       <div className={styles.rows} aria-live="off">
-        <div data-counter-row className={styles.row}>
-          <span className={`${styles.value} display mono-num`}>
-            {time ? time.years : "—"}
-          </span>
-          <span className={styles.unit}>{time ? plural(time.years, "year") : "лет"}</span>
-        </div>
+        {Boolean(time && time.years > 0) && (
+          <div data-counter-row className={styles.row}>
+            <span className={`${styles.value} display mono-num`}>
+              {time ? time.years : "—"}
+            </span>
+            <span className={styles.unit}>{time ? plural(time.years, "year") : "лет"}</span>
+          </div>
+        )}
         <div data-counter-row className={styles.row}>
           <span className={`${styles.value} display mono-num`}>
             {time ? time.months : "—"}

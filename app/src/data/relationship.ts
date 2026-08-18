@@ -124,7 +124,7 @@ export const stackPhotos: Memory[] = [
   { id: "s2", photo: "/images/couple/08.jpg", caption: "смеёмся, не помню над чем", tilt: 3 },
   { id: "s3", photo: "/images/couple/09.jpg", caption: "просто так", tilt: -2 },
   { id: "s4", photo: "/images/couple/10.jpg", caption: "ты сказала — не удаляй", tilt: 5 },
-  { id: "s5", photo: "/images/couple/11.jpg", caption: "лучший кадр года", tilt: -3 },
+  { id: "s5", photo: "/images/couple/11.jpg", caption: "наш любимый кадр", tilt: -3 },
 ];
 
 /* ── Киноплёнка ─────────────────────────────────────────── */
@@ -132,10 +132,10 @@ export const stackPhotos: Memory[] = [
 export const filmFrames: Memory[] = [
   { id: "f1", photo: "/images/couple/12.jpg", tilt: 0, date: "22.03", place: "Москва", phrase: "привет" },
   { id: "f2", photo: "/images/couple/13.jpg", tilt: 0, date: "29.03", place: "кафе", phrase: "ещё пять минут" },
-  { id: "f3", photo: "/images/couple/14.jpg", tilt: 0, date: "22.03", phrase: "теперь официально" },
+  { id: "f3", photo: "/images/couple/14.jpg", tilt: 0, date: "15.04", phrase: "теперь официально" },
   { id: "f4", photo: "/images/couple/15.jpg", tilt: 0, date: "15.06", place: "Питер", phrase: "пойдём не туда" },
-  { id: "f5", photo: "/images/couple/16.jpg", tilt: 0, date: "02.09", place: "море", phrase: "ещё один рассвет" },
-  { id: "f6", photo: "/images/couple/17.jpg", tilt: 0, date: "31.12", phrase: "наш первый новый год" },
+  { id: "f5", photo: "/images/couple/16.jpg", tilt: 0, date: "02.07", place: "море", phrase: "ещё один рассвет" },
+  { id: "f6", photo: "/images/couple/17.jpg", tilt: 0, date: "15.08", phrase: "и это только начало" },
 ];
 
 /* ── Коллаж воспоминаний ────────────────────────────────── */
@@ -153,8 +153,8 @@ export const collagePhotos: Memory[] = [
 
 export const stats: RelationshipStat[] = [
   { id: "days", value: "auto-days", label: "дней вместе" },
-  { id: "cities", value: 8, label: "городов" },
-  { id: "photos", value: 12840, label: "фотографий" },
+  { id: "cities", value: 4, label: "городов" },
+  { id: "photos", value: 1420, label: "фотографий" },
   { id: "jokes", value: "∞", label: "глупых шуток" },
   { id: "love", value: "999+", label: "«я тебя люблю»" },
 ];
