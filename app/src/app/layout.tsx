@@ -19,9 +19,34 @@ const sans = Inter({
 });
 
 export const metadata: Metadata = {
-  title: `${relationship.partnerA} × ${relationship.partnerB}`,
-  description: "Это место существует только для нас.",
-  robots: { index: false, follow: false },
+  metadataBase: new URL("https://artoym-sofa-love.vercel.app"),
+  title: `${relationship.partnerA} × ${relationship.partnerB} — ${relationship.tagline}`,
+  description: "История любви Артема и Софы. Наша хронология, любимые места, воспоминания и база знаний.",
+  applicationName: "Артем × Софа",
+  authors: [{ name: "Артем" }],
+  keywords: ["Артем и Софа", "История любви", "Артем", "Софа", "Любовь", "22.03.2026"],
+  openGraph: {
+    title: `${relationship.partnerA} × ${relationship.partnerB} — ${relationship.tagline}`,
+    description: "История любви Артема и Софы. Наша хронология, любимые места, воспоминания и база знаний.",
+    url: "https://artoym-sofa-love.vercel.app",
+    siteName: `${relationship.partnerA} × ${relationship.partnerB}`,
+    images: [
+      {
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: `${relationship.partnerA} × ${relationship.partnerB} — ${relationship.tagline}`,
+      },
+    ],
+    locale: "ru_RU",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${relationship.partnerA} × ${relationship.partnerB} — ${relationship.tagline}`,
+    description: "История любви Артема и Софы. Наша хронология, любимые места, воспоминания и база знаний.",
+    images: ["/opengraph-image"],
+  },
   icons: {
     icon: [
       { url: "/icon.svg", type: "image/svg+xml" },
