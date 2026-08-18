@@ -55,6 +55,11 @@ export default function AiKnowledge() {
         body: JSON.stringify({ question: q }),
       });
 
+      const contentType = res.headers.get("content-type") || "";
+      if (!contentType.includes("application/json")) {
+        throw new Error("Сервер ИИ временно недоступен. Проверьте, что переменная OPENROUTER_API_KEY добавлена в Vercel Environment Variables.");
+      }
+
       const data = await res.json();
       if (!res.ok) {
         throw new Error(data.error || "Не удалось получить ответ.");
