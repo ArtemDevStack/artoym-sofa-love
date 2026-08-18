@@ -16,15 +16,14 @@ import {
 const BASE_URL =
   process.env.OPENROUTER_BASE_URL || "https://openrouter.ai/api/v1";
 
-// Первая — z-ai/glm-5.2:free, затем свежие бесшовные бесплатные модели
+// Проверенные стабильные инстракт-модели, которые выключают лишнее мышление вслух
 const FAST_MODELS = [
-  "z-ai/glm-5.2:free",
-  "nvidia/nemotron-3.5-lightning:free",
-  "nvidia/nemotron-3-super-120b-a12b:free",
-  "google/gemma-4-26b-a4b-it:free",
-  "openai/gpt-oss-20b:free",
   "google/gemini-2.0-flash-lite-preview-02-05:free",
   "meta-llama/llama-3.3-70b-instruct:free",
+  "qwen/qwen-2.5-72b-instruct:free",
+  "google/gemma-4-26b-a4b-it:free",
+  "z-ai/glm-5.2:free",
+  "nvidia/nemotron-3-super-120b-a12b:free",
 ];
 
 function buildSystemPrompt() {
@@ -69,27 +68,30 @@ ${reasonsSummary}
 ${plansSummary}
 
 ПРАВИЛА ОТВЕТА:
-1. Отвечай СТРОГО на русском языке. Категорически запрещено выводить внутренние размышления (thinking/reasoning), англоязычный текст или черновики! Выводи только финальный готовый ответ для пользователя.
-2. Обязательно выделяй главные даты, имена и ключевые фразы жирным шрифтом (например, **22 марта 2026 года**).
-3. Добавляй тёплые романтичные эмодзи в подходящие моменты (например, ❤️, ✨).
-4. Пиши емко, выразительно и красиво (2-4 предложения).
-5. Если вопрос не касается пары или фактов из базы знаний, вежливо и с улыбкой направь диалог к теме Артема и Софы.
+1. Отвечай СТРОГО на русском языке. Категорически запрещено выводить черновики, списки размышлений или англоязычный текст!
+2. Выводи сразу готовый финальный ответ для пользователя.
+3. Обязательно выделяй главные даты, имена и ключевые фразы жирным шрифтом (например, **22 марта 2026 года**).
+4. Добавляй тёплые романтичные эмодзи в подходящие моменты (например, ❤️, ✨).
+5. Пиши емко, выразительно и красиво (2-4 предложения).
 6. Обязательно дописывай свой ответ полностью до конца и всегда завершай мысли точкой или эмодзи!`;
 }
 
 function cleanResponseText(rawText: string): string {
   if (!rawText) return "";
-  // Удаляем блоки внутренного мышления типа <thought>...</thought> или "Here's a thinking process:"
-  let cleaned = rawText.replace(/<think>[\s\S]*?<\/think>/gi, "");
+  let cleaned = rawText;
+
+  // Удаляем секции размышлений на английском
+  cleaned = cleaned.replace(/<think>[\s\S]*?<\/think>/gi, "");
   cleaned = cleaned.replace(/<thought>[\s\S]*?<\/thought>/gi, "");
   cleaned = cleaned.replace(/^Here's a thinking process:[\s\S]*?\n\n/gi, "");
   cleaned = cleaned.replace(/^Thinking Process:[\s\S]*?\n\n/gi, "");
 
-  // Если модель всё же напечатала мышление списком "1. Analyze...", вырезаем до первого русского предложения или финального ответа
-  if (cleaned.includes("1. Analyze") || cleaned.includes("User asks")) {
-    const russianMatch = cleaned.match(/([А-ЯЁ][а-яё\s\S]*)/);
-    if (russianMatch) {
-      cleaned = russianMatch[1];
+  // Если весь ответ начался с размышлений "1. Analyze...", находим первый русский абзац с кириллицей
+  if (cleaned.includes("1. Analyze") || cleaned.includes("User asks") || cleaned.includes("Check Constraints")) {
+    const paragraphs = cleaned.split("\n\n");
+    const russianParagraph = paragraphs.find((p) => /[а-яеё]+/i.test(p) && !p.includes("Analyze") && !p.includes("User asks"));
+    if (russianParagraph) {
+      cleaned = russianParagraph;
     }
   }
 
