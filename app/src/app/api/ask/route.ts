@@ -13,18 +13,18 @@ import {
   song,
 } from "@/data/relationship";
 
-const API_KEY = process.env.OPENROUTER_API_KEY || "";
 const BASE_URL =
   process.env.OPENROUTER_BASE_URL || "https://openrouter.ai/api/v1";
 
-// Модели упорядочены по скорости отклика (сначала сверхбыстрые Gemini Flash и Llama 8B)
+// Модели упорядочены по скорости отклика
 const FAST_MODELS = [
   "google/gemini-2.0-flash-lite-preview-02-05:free",
   "google/gemini-2.0-flash-exp:free",
+  "meta-llama/llama-3.3-70b-instruct:free",
   "meta-llama/llama-3.1-8b-instruct:free",
   "qwen/qwen-2.5-72b-instruct:free",
-  "meta-llama/llama-3.3-70b-instruct:free",
-  "nvidia/nemotron-3-ultra-550b-a55b:free",
+  "mistralai/mistral-7b-instruct:free",
+  "deepseek/deepseek-r1:free",
 ];
 
 function buildSystemPrompt() {
@@ -78,6 +78,19 @@ ${plansSummary}
 
 export async function POST(req: Request) {
   try {
+    const rawApiKey = process.env.OPENROUTER_API_KEY || "";
+    const apiKey = rawApiKey.replace(/^["']|["']$/g, "").trim();
+
+    if (!apiKey) {
+      return NextResponse.json(
+        {
+          error: "Переменная OPENROUTER_API_KEY не найдена в Vercel Environment Variables.",
+          details: "Перейдите в Vercel Dashboard -> Settings -> Environment Variables и добавьте OPENROUTER_API_KEY.",
+        },
+        { status: 500 }
+      );
+    }
+
     const { question } = await req.json();
 
     if (!question || typeof question !== "string" || !question.trim()) {
@@ -88,14 +101,14 @@ export async function POST(req: Request) {
     }
 
     const systemPrompt = buildSystemPrompt();
-    let lastError = "Не удалось получить ответ от OpenRouter AI.";
+    let lastError = "Не удалось получить ответ ни от одной модели OpenRouter.";
 
     for (const model of FAST_MODELS) {
       try {
         const response = await fetch(`${BASE_URL}/chat/completions`, {
           method: "POST",
           headers: {
-            Authorization: `Bearer ${API_KEY}`,
+            Authorization: `Bearer ${apiKey}`,
             "Content-Type": "application/json",
             "HTTP-Referer": "https://artoym-sofa-love.vercel.app",
             "X-Title": "Artem & Sofa Love Landing",
@@ -119,8 +132,8 @@ export async function POST(req: Request) {
           }
         } else {
           const errData = await response.text();
-          console.warn(`Model ${model} failed:`, errData);
-          lastError = errData;
+          console.warn(`Model ${model} returned HTTP ${response.status}:`, errData);
+          lastError = `[${model} HTTP ${response.status}]: ${errData}`;
         }
       } catch (err: any) {
         console.warn(`Fetch error for model ${model}:`, err?.message);
@@ -130,15 +143,14 @@ export async function POST(req: Request) {
 
     return NextResponse.json(
       {
-        error:
-          "ИИ временно недоступен. Попробуйте задать вопрос чуть позже!",
+        error: "ИИ временно недоступен. Проверьте правильность API ключа в Vercel.",
         details: lastError,
       },
       { status: 503 }
     );
   } catch (err: any) {
     return NextResponse.json(
-      { error: "Произошла ошибка при обработке запроса." },
+      { error: "Произошла ошибка при обработке запроса.", details: err?.message },
       { status: 500 }
     );
   }

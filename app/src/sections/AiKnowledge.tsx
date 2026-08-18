@@ -62,7 +62,7 @@ export default function AiKnowledge() {
 
       const data = await res.json();
       if (!res.ok) {
-        throw new Error(data.error || "Не удалось получить ответ.");
+        throw new Error(data.details ? `${data.error} ${data.details}` : data.error || "Не удалось получить ответ.");
       }
 
       setAnswer(data.answer);
