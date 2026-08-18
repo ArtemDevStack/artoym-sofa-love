@@ -28,7 +28,6 @@ import LoveLetter from "@/sections/LoveLetter";
 import Future from "@/sections/Future";
 import FinalScene from "@/sections/FinalScene";
 import SecretFinal from "@/sections/SecretFinal";
-import AiFloatingWidget from "@/components/AiFloatingWidget";
 
 type Phase = "loading" | "entry" | "story";
 
@@ -92,7 +91,6 @@ function Experience() {
           <CustomCursor />
           <ScrollProgress />
           <MusicPlayer />
-          <AiFloatingWidget />
           <SecretIndicator />
         </>
       )}
