@@ -16,14 +16,15 @@ import {
 const BASE_URL =
   process.env.OPENROUTER_BASE_URL || "https://openrouter.ai/api/v1";
 
-// Первая — nvidia/nemotron-3-ultra-550b-a55b:free, затем надежные резервные
+// Первая — z-ai/glm-5.2:free, затем свежие бесшовные бесплатные модели
 const FAST_MODELS = [
-  "nvidia/nemotron-3-ultra-550b-a55b:free",
-  "meta-llama/llama-3.3-70b-instruct:free",
+  "z-ai/glm-5.2:free",
+  "nvidia/nemotron-3.5-lightning:free",
+  "nvidia/nemotron-3-super-120b-a12b:free",
+  "google/gemma-4-26b-a4b-it:free",
+  "openai/gpt-oss-20b:free",
   "google/gemini-2.0-flash-lite-preview-02-05:free",
-  "google/gemini-2.0-flash-exp:free",
-  "qwen/qwen-2.5-72b-instruct:free",
-  "deepseek/deepseek-r1:free",
+  "meta-llama/llama-3.3-70b-instruct:free",
 ];
 
 function buildSystemPrompt() {
