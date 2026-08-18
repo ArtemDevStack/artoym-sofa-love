@@ -162,6 +162,17 @@ export async function POST(req: Request) {
         } else {
           const errData = await response.text();
           console.warn(`Model ${model} returned HTTP ${response.status}:`, errData);
+
+          if (response.status === 429 || errData.includes("free-models-per-day")) {
+            return NextResponse.json(
+              {
+                error: "Превышен дневной лимит бесплатных запросов OpenRouter (50 запросов в день на бесплатном аккаунте).",
+                details: "Чтобы снять лимит до 1000 запросов в день, пополните баланс OpenRouter на $5–10 (бесплатные модели не списывают баланс), либо дождитесь сброса лимита завтра.",
+              },
+              { status: 429 }
+            );
+          }
+
           lastError = `[${model} HTTP ${response.status}]: ${errData}`;
         }
       } catch (err: any) {
