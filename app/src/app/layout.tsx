@@ -32,9 +32,10 @@ export const metadata: Metadata = {
     siteName: `${relationship.partnerA} × ${relationship.partnerB}`,
     images: [
       {
-        url: "/opengraph-image",
+        url: "https://artoym-sofa-love.vercel.app/og-image.jpg",
         width: 1200,
         height: 630,
+        type: "image/jpeg",
         alt: `${relationship.partnerA} × ${relationship.partnerB} — ${relationship.tagline}`,
       },
     ],
@@ -45,7 +46,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: `${relationship.partnerA} × ${relationship.partnerB} — ${relationship.tagline}`,
     description: "История любви Артема и Софы. Наша хронология, любимые места, воспоминания и база знаний.",
-    images: ["/opengraph-image"],
+    images: ["https://artoym-sofa-love.vercel.app/og-image.jpg"],
   },
   icons: {
     icon: [
@@ -66,6 +67,15 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="ru" className={`${display.variable} ${sans.variable}`}>
+      <head>
+        <meta property="og:image" content="https://artoym-sofa-love.vercel.app/og-image.jpg" />
+        <meta property="og:image:secure_url" content="https://artoym-sofa-love.vercel.app/og-image.jpg" />
+        <meta property="og:image:type" content="image/jpeg" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta name="twitter:image" content="https://artoym-sofa-love.vercel.app/og-image.jpg" />
+        <link rel="image_src" href="https://artoym-sofa-love.vercel.app/og-image.jpg" />
+      </head>
       <body>{children}</body>
     </html>
   );
