@@ -1,0 +1,43 @@
+.img {
+  object-fit: cover;
+  background: var(--bg-lift);
+}
+
+.placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  background:
+    radial-gradient(120% 90% at 30% 20%, #221e19 0%, transparent 60%),
+    radial-gradient(100% 100% at 75% 80%, #1a1713 0%, transparent 55%),
+    var(--bg-lift);
+  color: var(--muted);
+}
+
+.placeholder::before {
+  content: "";
+  position: absolute;
+  inset: 12px;
+  border: 1px solid var(--line-soft);
+  pointer-events: none;
+}
+
+.frameNo {
+  font-family: var(--serif);
+  font-size: clamp(40px, 7vw, 84px);
+  font-style: italic;
+  color: var(--beige);
+  opacity: 0.55;
+  line-height: 1;
+}
+
+.hint {
+  font-size: 10px;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  opacity: 0.8;
+}

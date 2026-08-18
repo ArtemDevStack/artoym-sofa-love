@@ -1,0 +1,40 @@
+.dot,
+.ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 210;
+  pointer-events: none;
+  translate: -50% -50%;
+}
+
+.dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--ink);
+  mix-blend-mode: difference;
+}
+
+.ring {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid rgba(236, 230, 219, 0.5);
+  display: grid;
+  place-items: center;
+  mix-blend-mode: difference;
+}
+
+.label {
+  font-size: 8px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.labelVisible {
+  opacity: 1;
+}

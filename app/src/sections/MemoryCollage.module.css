@@ -1,0 +1,47 @@
+.root {
+  position: relative;
+  padding: 14vh 0 10vh;
+}
+
+.heading {
+  text-align: center;
+  margin-bottom: 6vh;
+}
+
+.field {
+  position: relative;
+  height: 150vh;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.item {
+  position: absolute;
+  overflow: hidden;
+  box-shadow: 0 30px 70px -24px rgba(0, 0, 0, 0.8);
+  will-change: transform;
+  transform-style: preserve-3d;
+}
+
+.caption {
+  position: absolute;
+  left: 12px;
+  bottom: 10px;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 13px;
+  color: var(--ink);
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.8);
+}
+
+.hiddenSpot {
+  position: absolute;
+  left: 52%;
+  top: 38%;
+  z-index: 20;
+  font-size: 24px;
+}
+
+@media (max-width: 768px) {
+  .field { height: 120vh; }
+}

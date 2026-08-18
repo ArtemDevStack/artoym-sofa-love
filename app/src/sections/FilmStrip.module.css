@@ -1,0 +1,101 @@
+.root {
+  position: relative;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.heading {
+  position: absolute;
+  top: clamp(24px, 6vh, 56px);
+  left: var(--pad);
+  z-index: 2;
+}
+
+.viewport {
+  overflow: hidden;
+}
+
+.nativeScroll {
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+}
+
+.track {
+  display: flex;
+  align-items: center;
+  gap: clamp(24px, 4vw, 64px);
+  padding: 0 var(--pad);
+  width: max-content;
+  will-change: transform;
+}
+
+.frame {
+  position: relative;
+  flex-shrink: 0;
+  width: clamp(260px, 46vw, 620px);
+  padding: 26px 0;
+  background: #0a0908;
+}
+
+/* Перфорация плёнки */
+.holes {
+  position: absolute;
+  top: 4px;
+  left: 0;
+  right: 0;
+  height: 10px;
+  background-image: radial-gradient(circle, var(--line) 2.2px, transparent 2.6px);
+  background-size: 22px 10px;
+  background-position: 6px 0;
+  opacity: 0.6;
+}
+
+.holesBottom {
+  top: auto;
+  bottom: 4px;
+}
+
+.photoWrap {
+  position: relative;
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+}
+
+.meta {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  padding-top: 14px;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+.meta em {
+  font-family: var(--serif);
+  font-size: 14px;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  color: var(--ink-dim);
+}
+
+.extraFrame {
+  color: var(--accent);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+}
+
+.endSpacer {
+  flex-shrink: 0;
+  width: 30vw;
+}
+
+@media (max-width: 768px) {
+  .frame { width: 78vw; }
+}

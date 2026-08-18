@@ -1,0 +1,84 @@
+.root {
+  position: relative;
+  height: 100vh;
+  height: 100svh;
+}
+
+.stage {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+}
+
+.dot {
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--ink);
+  box-shadow: 0 0 18px 4px rgba(236, 230, 219, 0.55);
+  z-index: 3;
+}
+
+.flash {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(236, 230, 219, 0.8), transparent 70%);
+  opacity: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.phrase {
+  position: relative;
+  z-index: 4;
+  max-width: 20ch;
+  text-align: center;
+  font-size: clamp(24px, 3.6vw, 46px);
+  font-style: italic;
+  color: var(--ink);
+  padding: 0 var(--pad);
+  opacity: 0;
+}
+
+.photo {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  opacity: 0;
+  will-change: clip-path;
+}
+
+.photo img {
+  will-change: transform;
+}
+
+.photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(15, 14, 12, 0.45), transparent 35%);
+}
+
+.caption {
+  position: absolute;
+  bottom: clamp(24px, 5vh, 48px);
+  left: var(--pad);
+  z-index: 5;
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+  opacity: 0;
+}
+
+.secretStar {
+  position: absolute;
+  top: clamp(20px, 4vh, 40px);
+  right: clamp(52px, 7vw, 96px);
+  z-index: 6;
+}

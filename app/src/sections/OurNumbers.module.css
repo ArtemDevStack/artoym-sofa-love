@@ -1,0 +1,52 @@
+.root {
+  padding: 16vh var(--pad);
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.heading {
+  text-align: center;
+  margin-bottom: 10vh;
+}
+
+.list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(40px, 8vh, 90px);
+}
+
+.item {
+  display: flex;
+  align-items: baseline;
+  gap: clamp(16px, 3vw, 40px);
+  opacity: 0;
+}
+
+.value {
+  font-size: clamp(72px, 14vw, 190px);
+  line-height: 0.9;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+  min-width: 2.2ch;
+}
+
+.label {
+  font-size: clamp(13px, 1.4vw, 17px);
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  text-transform: lowercase;
+}
+
+.item:nth-child(even) {
+  flex-direction: row-reverse;
+  text-align: right;
+}
+
+.item:nth-child(even) .value {
+  color: var(--beige);
+}
+
+.item:nth-child(odd) .value {
+  margin-left: clamp(0px, 8vw, 160px);
+}

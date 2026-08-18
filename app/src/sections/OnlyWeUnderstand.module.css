@@ -1,0 +1,56 @@
+.root {
+  padding: 16vh var(--pad);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.heading {
+  font-size: clamp(32px, 5vw, 64px);
+  font-style: italic;
+  text-align: center;
+  margin-bottom: 10vh;
+  color: var(--ink);
+}
+
+.scatter {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: clamp(20px, 4vw, 48px);
+}
+
+.artifact {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 18px 22px;
+  border: 1px solid var(--line-soft);
+  background: rgba(27, 24, 21, 0.5);
+  max-width: 260px;
+  transition: border-color 0.5s, transform 0.5s var(--ease-out);
+}
+
+.artifact:hover {
+  border-color: var(--line);
+  transform: translateY(-4px) rotate(0deg) !important;
+}
+
+.label {
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.value {
+  font-size: clamp(17px, 1.8vw, 21px);
+  font-style: italic;
+  color: var(--ink);
+}
+
+.note {
+  font-size: 12px;
+  color: var(--ink-dim);
+}

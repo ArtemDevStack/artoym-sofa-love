@@ -1,0 +1,103 @@
+.root {
+  position: relative;
+  padding-top: 12vh;
+}
+
+.header {
+  padding: 0 var(--pad) 8vh;
+  text-align: center;
+}
+
+.scene {
+  min-height: 100vh;
+  min-height: 100svh;
+  display: grid;
+  align-items: center;
+  padding: 8vh var(--pad);
+}
+
+.inner {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(20px, 4vh, 44px);
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.date {
+  font-size: clamp(64px, 12vw, 180px);
+  font-style: italic;
+  color: var(--ink);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  opacity: 0;
+}
+
+.date button {
+  font: inherit;
+  color: inherit;
+  letter-spacing: inherit;
+}
+
+.photo {
+  position: relative;
+  width: min(100%, 640px);
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  justify-self: end;
+  margin-top: calc(clamp(64px, 12vw, 180px) * -0.35);
+  box-shadow: 0 40px 90px -30px rgba(0, 0, 0, 0.75);
+  will-change: transform, clip-path, filter;
+}
+
+.text {
+  max-width: 44ch;
+}
+
+.title {
+  font-size: clamp(22px, 2.6vw, 32px);
+  margin-bottom: 12px;
+  color: var(--ink);
+}
+
+.description {
+  color: var(--ink-dim);
+  font-size: clamp(15px, 1.3vw, 17px);
+  max-width: 38ch;
+}
+
+.location {
+  margin-top: 14px;
+  font-size: 11px;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* Чередование композиции: чётные сцены зеркалятся */
+.scene:nth-of-type(even) .photo {
+  justify-self: start;
+}
+
+.scene:nth-of-type(even) .inner {
+  text-align: right;
+}
+
+.scene:nth-of-type(even) .text {
+  justify-self: end;
+  text-align: right;
+  margin-left: auto;
+}
+
+@media (max-width: 768px) {
+  .photo {
+    width: 100%;
+    margin-top: calc(clamp(64px, 12vw, 180px) * -0.22);
+  }
+  .scene:nth-of-type(even) .inner,
+  .scene:nth-of-type(even) .text {
+    text-align: left;
+  }
+}

@@ -1,0 +1,102 @@
+.root {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.half {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 50.5%;
+  background: #0b0a09;
+}
+
+.top { top: 0; }
+.bottom { bottom: 0; }
+
+.content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(48px, 9vh, 96px);
+  padding: var(--pad);
+  text-align: center;
+}
+
+.phrase {
+  font-size: clamp(26px, 4.2vw, 52px);
+  color: var(--ink);
+  font-style: italic;
+}
+
+.pinBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.pinField {
+  position: relative;
+  padding: 12px;
+}
+
+/* Прозрачный input поверх ячеек: клик/тап в любую точку поля фокусирует ввод */
+.pinInput {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  background: transparent;
+  border: 0;
+  color: transparent;
+  caret-color: transparent;
+  font-size: 20px;
+  letter-spacing: 1em;
+  outline: none;
+}
+
+.row {
+  display: flex;
+  gap: clamp(14px, 3vw, 26px);
+}
+
+.cell {
+  width: clamp(34px, 6vw, 48px);
+  height: clamp(48px, 8vw, 64px);
+  display: grid;
+  place-items: center;
+  border-bottom: 1px solid var(--line);
+  color: var(--beige);
+  font-size: 26px;
+  transition: border-color 0.4s, color 0.4s;
+}
+
+.cellFilled {
+  border-color: var(--beige);
+}
+
+.cellError {
+  border-color: #b0574a;
+  color: #b0574a;
+}
+
+
+
+.hint {
+  font-size: 11px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.error {
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  color: #b0574a;
+}
