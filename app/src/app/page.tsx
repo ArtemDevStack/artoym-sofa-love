@@ -21,12 +21,14 @@ import Counter from "@/sections/Counter";
 import OurNumbers from "@/sections/OurNumbers";
 import OurPlaces from "@/sections/OurPlaces";
 import OnlyWeUnderstand from "@/sections/OnlyWeUnderstand";
+import AiKnowledge from "@/sections/AiKnowledge";
 import Reasons from "@/sections/Reasons";
 import Letters from "@/sections/Letters";
 import LoveLetter from "@/sections/LoveLetter";
 import Future from "@/sections/Future";
 import FinalScene from "@/sections/FinalScene";
 import SecretFinal from "@/sections/SecretFinal";
+import AiFloatingWidget from "@/components/AiFloatingWidget";
 
 type Phase = "loading" | "entry" | "story";
 
@@ -73,6 +75,7 @@ function Experience() {
           <OurNumbers />
           <OurPlaces />
           <OnlyWeUnderstand />
+          <AiKnowledge />
           <Reasons />
           <Letters />
           <LoveLetter />
@@ -89,6 +92,7 @@ function Experience() {
           <CustomCursor />
           <ScrollProgress />
           <MusicPlayer />
+          <AiFloatingWidget />
           <SecretIndicator />
         </>
       )}

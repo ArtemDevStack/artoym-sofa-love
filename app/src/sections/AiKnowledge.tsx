@@ -1,0 +1,153 @@
+"use client";
+
+import { useState, useRef } from "react";
+import { gsap, useGSAP } from "@/lib/gsap";
+import { useMotion } from "@/lib/motion";
+import styles from "./AiKnowledge.module.css";
+
+const SUGGESTIONS = [
+  "Когда и как мы познакомились?",
+  "Какая наша любимая еда и фильм?",
+  "Какая наша любимая песня?",
+  "О чём мы мечтаем в будущем?",
+  "Назови романтичную причину любви",
+];
+
+export default function AiKnowledge() {
+  const rootRef = useRef<HTMLElement>(null);
+  const { reducedMotion } = useMotion();
+
+  const [question, setQuestion] = useState("");
+  const [answer, setAnswer] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  useGSAP(
+    () => {
+      if (reducedMotion) return;
+      gsap.fromTo(
+        "[data-ai-card]",
+        { opacity: 0, y: 30 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          ease: "power2.out",
+          scrollTrigger: { trigger: rootRef.current, start: "top 75%", once: true },
+        }
+      );
+    },
+    { scope: rootRef, dependencies: [reducedMotion] }
+  );
+
+  async function handleAsk(queryToAsk?: string) {
+    const q = queryToAsk || question;
+    if (!q.trim() || loading) return;
+
+    setLoading(true);
+    setError(null);
+    setAnswer(null);
+
+    try {
+      const res = await fetch("/api/ask", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ question: q }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.error || "Не удалось получить ответ.");
+      }
+
+      setAnswer(data.answer);
+    } catch (err: any) {
+      setError(err.message || "Ошибка подключения.");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  return (
+    <section ref={rootRef} id="ai-knowledge" className={styles.root} aria-label="Нейросеть про нас">
+      <div data-ai-card className={styles.card}>
+        <div className={styles.badge}>
+          <span className={styles.sparkle}>✨</span>
+          <span>ИИ-хранитель базы знаний</span>
+        </div>
+
+        <h2 className={`${styles.heading} display`}>Спроси у нейросети о нас</h2>
+        <p className={styles.subheading}>
+          Виртуальный ассистент знает всё о дате нашего знакомства, любимых местах, секретах и воспоминаниях.
+        </p>
+
+        <div className={styles.suggestions}>
+          {SUGGESTIONS.map((item, idx) => (
+            <button
+              key={idx}
+              type="button"
+              className={styles.suggestionChip}
+              onClick={() => {
+                setQuestion(item);
+                handleAsk(item);
+              }}
+            >
+              {item}
+            </button>
+          ))}
+        </div>
+
+        <form
+          className={styles.form}
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleAsk();
+          }}
+        >
+          <input
+            type="text"
+            className={styles.input}
+            placeholder="Задай любой вопрос про Артема и Софу..."
+            value={question}
+            onChange={(e) => setQuestion(e.target.value)}
+          />
+          <button type="submit" className={styles.submitBtn} disabled={loading || !question.trim()}>
+            {loading ? (
+              <span className={styles.spinner} />
+            ) : (
+              <>
+                <span>✨</span>
+                <span>Спросить</span>
+              </>
+            )}
+          </button>
+        </form>
+
+        {loading && (
+          <div className={styles.answerBox}>
+            <div className={styles.loadingState}>
+              <div className={styles.spinner} />
+              <span>ИИ думает и вспоминает детали...</span>
+            </div>
+          </div>
+        )}
+
+        {error && (
+          <div className={styles.answerBox} style={{ borderColor: "rgba(244, 91, 105, 0.4)" }}>
+            <div className={styles.answerHeader} style={{ color: "#f45b69" }}>
+              Ошибка
+            </div>
+            <p>{error}</p>
+          </div>
+        )}
+
+        {answer && !loading && (
+          <div className={styles.answerBox}>
+            <div className={styles.answerHeader}>✨ Ответ нейросети:</div>
+            <p>{answer}</p>
+          </div>
+        )}
+      </div>
+    </section>
+  );
+}
