@@ -16,12 +16,13 @@ import {
 const BASE_URL =
   process.env.OPENROUTER_BASE_URL || "https://openrouter.ai/api/v1";
 
-// Проверенные стабильные инстракт-модели, которые выключают лишнее мышление вслух
+// Упорядочены по скорости отклика и надежности (включая микро-дешевые высокоскоростные эндпоинты)
 const FAST_MODELS = [
   "google/gemini-2.0-flash-lite-preview-02-05:free",
   "meta-llama/llama-3.3-70b-instruct:free",
+  "openai/gpt-4o-mini",
+  "google/gemini-2.0-flash-001",
   "qwen/qwen-2.5-72b-instruct:free",
-  "google/gemma-4-26b-a4b-it:free",
   "z-ai/glm-5.2:free",
   "nvidia/nemotron-3-super-120b-a12b:free",
 ];
