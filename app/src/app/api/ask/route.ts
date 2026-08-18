@@ -12,15 +12,15 @@ import {
 const API_KEY = process.env.OPENROUTER_API_KEY || "";
 const BASE_URL =
   process.env.OPENROUTER_BASE_URL || "https://openrouter.ai/api/v1";
-const PRIMARY_MODEL =
-  process.env.OPENROUTER_MODEL || "nvidia/nemotron-3-ultra-550b-a55b:free";
 
-const FALLBACK_MODELS = [
-  PRIMARY_MODEL,
-  "meta-llama/llama-3.3-70b-instruct:free",
+// Модели упорядочены по скорости отклика (сначала сверхбыстрые Gemini Flash и Llama 8B)
+const FAST_MODELS = [
   "google/gemini-2.0-flash-lite-preview-02-05:free",
-  "mistralai/mistral-7b-instruct:free",
+  "google/gemini-2.0-flash-exp:free",
+  "meta-llama/llama-3.1-8b-instruct:free",
   "qwen/qwen-2.5-72b-instruct:free",
+  "meta-llama/llama-3.3-70b-instruct:free",
+  "nvidia/nemotron-3-ultra-550b-a55b:free",
 ];
 
 function buildSystemPrompt() {
@@ -84,7 +84,7 @@ export async function POST(req: Request) {
     const systemPrompt = buildSystemPrompt();
     let lastError = "Не удалось получить ответ от OpenRouter AI.";
 
-    for (const model of FALLBACK_MODELS) {
+    for (const model of FAST_MODELS) {
       try {
         const response = await fetch(`${BASE_URL}/chat/completions`, {
           method: "POST",
@@ -100,8 +100,8 @@ export async function POST(req: Request) {
               { role: "system", content: systemPrompt },
               { role: "user", content: question.trim() },
             ],
-            temperature: 0.7,
-            max_tokens: 350,
+            temperature: 0.65,
+            max_tokens: 220,
           }),
         });
 
