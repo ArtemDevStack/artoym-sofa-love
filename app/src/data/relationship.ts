@@ -271,8 +271,8 @@ export const letters: Letter[] = [
 /* ── Песня ──────────────────────────────────────────────── */
 
 export const song: Song = {
-  title: "Наша песня",
-  artist: "положите файл в public/audio/our-song.mp3",
+  title: "Это ли не счастье",
+  artist: "Пицца",
   src: "/audio/our-song.mp3",
 };
 
