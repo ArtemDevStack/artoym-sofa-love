@@ -51,7 +51,7 @@ export const access: AccessConfig = {
 export const relationship: Relationship = {
   partnerA: "Артем",
   partnerB: "Софа",
-  startDate: "2024-03-22T19:30:00",
+  startDate: "2026-03-22T19:30:00",
   tagline: "два человека, одна история",
 };
 
@@ -60,7 +60,7 @@ export const relationship: Relationship = {
 export const timeline: TimelineEvent[] = [
   {
     id: "meeting",
-    date: "22.03.2024",
+    date: "22.03.2026",
     title: "Знакомство",
     description:
       "Случайная встреча 22 марта, которая случайной не бывает. Мы говорили так, будто знали друг друга давно.",
@@ -70,7 +70,7 @@ export const timeline: TimelineEvent[] = [
   },
   {
     id: "first-date",
-    date: "29.03.2024",
+    date: "29.03.2026",
     title: "Первое свидание",
     description:
       "Кофе, который остыл, потому что разговор был важнее. И долгая дорога домой — нарочно самая длинная.",
@@ -80,7 +80,7 @@ export const timeline: TimelineEvent[] = [
   },
   {
     id: "beginning",
-    date: "22.03.2024",
+    date: "22.03.2026",
     title: "Начало",
     description:
       "22 марта — день, который мы теперь называем «нашим». Дальше — всё, что было до, стало просто прологом.",
@@ -89,7 +89,7 @@ export const timeline: TimelineEvent[] = [
   },
   {
     id: "moment",
-    date: "27.04.2024",
+    date: "27.04.2026",
     title: "Важный момент",
     description:
       "Обычный вечер, который почему-то запомнился больше многих праздников. Мы просто были рядом.",
@@ -98,7 +98,7 @@ export const timeline: TimelineEvent[] = [
   },
   {
     id: "first-trip",
-    date: "15.06.2024",
+    date: "15.06.2026",
     title: "Первая поездка",
     description:
       "Поезд, чужой город и ощущение, что с этим человеком можно куда угодно.",
@@ -165,7 +165,7 @@ export const places: Place[] = [
   {
     id: "p-met",
     name: "Где мы познакомились",
-    date: "22.03.2024",
+    date: "22.03.2026",
     memory: "22 марта — день, когда всё началось.",
     photo: "/images/couple/01.jpg",
     x: 24,
@@ -174,7 +174,7 @@ export const places: Place[] = [
   {
     id: "p-date",
     name: "Первое свидание",
-    date: "29.03.2024",
+    date: "29.03.2026",
     memory: "Кафе, в котором нас не хотели отпускать даже после закрытия.",
     photo: "/images/couple/02.jpg",
     x: 44,
@@ -183,7 +183,7 @@ export const places: Place[] = [
   {
     id: "p-trip",
     name: "Первая поездка",
-    date: "15.06.2024",
+    date: "15.06.2026",
     memory: "Нева, белые ночи и мы, не желающие спать.",
     photo: "/images/couple/05.jpg",
     x: 68,
