@@ -144,10 +144,49 @@ export default function AiKnowledge() {
         {answer && !loading && (
           <div className={styles.answerBox}>
             <div className={styles.answerHeader}>✨ Ответ нейросети:</div>
-            <p>{answer}</p>
+            <FormattedText text={answer} />
           </div>
         )}
       </div>
     </section>
   );
+}
+
+function FormattedText({ text }: { text: string }) {
+  const paragraphs = text.split(/\n\s*\n/);
+
+  return (
+    <>
+      {paragraphs.map((para, pIdx) => {
+        const lines = para.split(/\n/);
+        return (
+          <p key={pIdx} style={{ marginBottom: pIdx < paragraphs.length - 1 ? "10px" : "0", lineHeight: 1.6 }}>
+            {lines.map((line, lIdx) => (
+              <span key={lIdx}>
+                {lIdx > 0 && <br />}
+                {parseInlineMarkdown(line)}
+              </span>
+            ))}
+          </p>
+        );
+      })}
+    </>
+  );
+}
+
+function parseInlineMarkdown(text: string) {
+  const parts = text.split(/(\*\*.*?\*\*|\*.*?\*)/g);
+  return parts.map((part, index) => {
+    if (part.startsWith("**") && part.endsWith("**") && part.length > 4) {
+      return (
+        <strong key={index} style={{ color: "#fff", fontWeight: 600 }}>
+          {part.slice(2, -2)}
+        </strong>
+      );
+    }
+    if (part.startsWith("*") && part.endsWith("*") && part.length > 2) {
+      return <em key={index}>{part.slice(1, -1)}</em>;
+    }
+    return part;
+  });
 }
