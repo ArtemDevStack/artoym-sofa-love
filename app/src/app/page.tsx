@@ -10,7 +10,6 @@ import PrivateEntry from "@/components/PrivateEntry";
 import CustomCursor from "@/components/CustomCursor";
 import MusicPlayer from "@/components/MusicPlayer";
 import ScrollProgress from "@/components/ScrollProgress";
-import { SecretIndicator } from "@/components/Secrets";
 
 import Intro from "@/sections/Intro";
 import Timeline from "@/sections/Timeline";
@@ -91,7 +90,6 @@ function Experience() {
           <CustomCursor />
           <ScrollProgress />
           <MusicPlayer />
-          <SecretIndicator />
         </>
       )}
     </>
