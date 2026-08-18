@@ -105,6 +105,9 @@ export async function POST(req: Request) {
 
     for (const model of FAST_MODELS) {
       try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 6000);
+
         const response = await fetch(`${BASE_URL}/chat/completions`, {
           method: "POST",
           headers: {
@@ -120,9 +123,12 @@ export async function POST(req: Request) {
               { role: "user", content: question.trim() },
             ],
             temperature: 0.65,
-            max_tokens: 600,
+            max_tokens: 500,
           }),
+          signal: controller.signal,
         });
+
+        clearTimeout(timeoutId);
 
         if (response.ok) {
           const data = await response.json();
@@ -137,7 +143,7 @@ export async function POST(req: Request) {
         }
       } catch (err: any) {
         console.warn(`Fetch error for model ${model}:`, err?.message);
-        lastError = err?.message || String(err);
+        lastError = err?.name === "AbortError" ? `Модель ${model} превысила таймаут (6с)` : (err?.message || String(err));
       }
     }
 
