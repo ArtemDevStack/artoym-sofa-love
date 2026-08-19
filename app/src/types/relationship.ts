@@ -21,6 +21,8 @@ export interface TimelineEvent {
   description: string;
   /** Путь к фото, напр. "/images/couple/01.jpg" */
   photo: string;
+  /** Опциональный путь к видео, напр. "/video/video1.mp4" */
+  video?: string;
   location?: string;
   /** Вариант механики сцены — каждая крупная сцена имеет свою */
   scene: "wipe" | "blur" | "curtain" | "slide" | "iris" | "rise";
@@ -29,6 +31,7 @@ export interface TimelineEvent {
 export interface Memory {
   id: string;
   photo: string;
+  video?: string;
   caption?: string;
   /** Небольшой наклон распечатки, градусы */
   tilt: number;

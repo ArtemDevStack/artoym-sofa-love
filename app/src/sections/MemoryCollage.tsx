@@ -123,11 +123,22 @@ export default function MemoryCollage() {
               onMouseMove={handleMove}
               onMouseLeave={handleLeave}
             >
-              <Photo
-                src={memory.photo}
-                alt={memory.caption ?? `Воспоминание ${i + 1}`}
-                sizes="(max-width: 768px) 44vw, 28vw"
-              />
+              {memory.video ? (
+                <video
+                  src={memory.video}
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "2px" }}
+                />
+              ) : (
+                <Photo
+                  src={memory.photo}
+                  alt={memory.caption ?? `Воспоминание ${i + 1}`}
+                  sizes="(max-width: 768px) 44vw, 28vw"
+                />
+              )}
               {memory.caption && (
                 <figcaption className={styles.caption}>{memory.caption}</figcaption>
               )}

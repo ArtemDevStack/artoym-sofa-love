@@ -74,11 +74,22 @@ export default function FilmStrip() {
             <figure key={frame.id} data-frame className={styles.frame} data-cursor="view">
               <span className={styles.holes} aria-hidden="true" />
               <div className={styles.photoWrap}>
-                <Photo
-                  src={frame.photo}
-                  alt={frame.phrase ?? `Кадр ${i + 1}`}
-                  sizes="(max-width: 768px) 80vw, 46vw"
-                />
+                {frame.video ? (
+                  <video
+                    src={frame.video}
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                  />
+                ) : (
+                  <Photo
+                    src={frame.photo}
+                    alt={frame.phrase ?? `Кадр ${i + 1}`}
+                    sizes="(max-width: 768px) 80vw, 46vw"
+                  />
+                )}
               </div>
               <figcaption className={styles.meta}>
                 <span className="mono-num">{String(i + 1).padStart(2, "0")}</span>

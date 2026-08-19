@@ -108,33 +108,33 @@ export const timeline: TimelineEvent[] = [
 /* ── Стопка распечатанных фотографий ────────────────────── */
 
 export const stackPhotos: Memory[] = [
-  { id: "s1", photo: "/images/couple/07.jpg", caption: "то самое утро", tilt: -4 },
-  { id: "s2", photo: "/images/couple/08.jpg", caption: "смеёмся, не помню над чем", tilt: 3 },
-  { id: "s3", photo: "/images/couple/09.jpg", caption: "просто так", tilt: -2 },
-  { id: "s4", photo: "/images/couple/10.jpg", caption: "ты сказала — не удаляй", tilt: 5 },
-  { id: "s5", photo: "/images/couple/11.jpg", caption: "наш любимый кадр", tilt: -3 },
+  { id: "s1", photo: "/images/couple/21.jpg", caption: "то самое утро", tilt: -4 },
+  { id: "s2", photo: "/images/couple/22.jpg", caption: "смеёмся, не помню над чем", tilt: 3 },
+  { id: "s3", photo: "/images/couple/23.jpg", caption: "просто так", tilt: -2 },
+  { id: "s4", photo: "/images/couple/24.jpg", caption: "ты сказала — не удаляй", tilt: 5 },
+  { id: "s5", photo: "/images/couple/25.jpg", caption: "наш любимый кадр", tilt: -3 },
 ];
 
 /* ── Киноплёнка ─────────────────────────────────────────── */
 
 export const filmFrames: Memory[] = [
-  { id: "f1", photo: "/images/couple/12.jpg", tilt: 0, date: "22.03", place: "Москва", phrase: "привет" },
-  { id: "f2", photo: "/images/couple/13.jpg", tilt: 0, date: "29.03", place: "Москва", phrase: "ты прекрасна" },
-  { id: "f3", photo: "/images/couple/14.jpg", tilt: 0, date: "31.07", phrase: "встретились вживую" },
-  { id: "f4", photo: "/images/couple/15.jpg", tilt: 0, date: "ночи", place: "разговоры", phrase: "я всегда рядом" },
-  { id: "f5", photo: "/images/couple/16.jpg", tilt: 0, date: "всегда", phrase: "в сердечке" },
-  { id: "f6", photo: "/images/couple/17.jpg", tilt: 0, date: "будущее", phrase: "и это только начало" },
+  { id: "f1", photo: "/images/couple/21.jpg", video: "/video/video1.mp4", tilt: 0, date: "22.03", place: "Москва", phrase: "привет" },
+  { id: "f2", photo: "/images/couple/22.jpg", tilt: 0, date: "29.03", place: "Москва", phrase: "ты прекрасна" },
+  { id: "f3", photo: "/images/couple/25.jpg", video: "/video/video2.mp4", tilt: 0, date: "31.07", phrase: "встретились вживую" },
+  { id: "f4", photo: "/images/couple/26.jpg", tilt: 0, date: "ночи", place: "разговоры", phrase: "я всегда рядом" },
+  { id: "f5", photo: "/images/couple/29.jpg", video: "/video/video3.mp4", tilt: 0, date: "всегда", phrase: "в сердечке" },
+  { id: "f6", photo: "/images/couple/31.jpg", video: "/video/video4.mp4", tilt: 0, date: "будущее", phrase: "и это только начало" },
 ];
 
 /* ── Коллаж воспоминаний ────────────────────────────────── */
 
 export const collagePhotos: Memory[] = [
-  { id: "c1", photo: "/images/couple/18.jpg", tilt: -6, caption: "весна" },
-  { id: "c2", photo: "/images/couple/19.jpg", tilt: 4, caption: "Москва" },
-  { id: "c3", photo: "/images/couple/20.jpg", tilt: -3, caption: "мы" },
-  { id: "c4", photo: "/images/couple/01.jpg", tilt: 7, caption: "начало" },
-  { id: "c5", photo: "/images/couple/03.jpg", tilt: -5, caption: "22.03" },
-  { id: "c6", photo: "/images/couple/05.jpg", tilt: 2, caption: "вместе" },
+  { id: "c1", photo: "/images/couple/27.jpg", tilt: -6, caption: "живые эмоции" },
+  { id: "c2", photo: "/images/couple/28.jpg", video: "/video/video2.mp4", tilt: 4, caption: "наше видео" },
+  { id: "c3", photo: "/images/couple/29.jpg", tilt: -3, caption: "улыбки" },
+  { id: "c4", photo: "/images/couple/30.jpg", video: "/video/video3.mp4", tilt: 7, caption: "моменты" },
+  { id: "c5", photo: "/images/couple/31.jpg", tilt: -5, caption: "22.03" },
+  { id: "c6", photo: "/images/couple/32.jpg", tilt: 2, caption: "вместе" },
 ];
 
 /* ── Цифры ──────────────────────────────────────────────── */
