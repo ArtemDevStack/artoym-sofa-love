@@ -50,13 +50,15 @@ export function MotionProvider({ children }: { children: ReactNode }) {
   }, []);
 
   useEffect(() => {
-    if (reducedMotion) return; // без Lenis — нативный скролл
+    // На мобильных/тач устройствах используем 100% нативный 120Hz скролл браузера.
+    // Интерполяция тач-событий сторонними библиотеками вызывает дёргания при скролле вверх.
+    if (reducedMotion || isMobile) return;
 
     const lenis = new Lenis({
       duration: 1.15,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
-      touchMultiplier: 1.4,
+      syncTouch: false,
     });
     lenisRef.current = lenis;
 
@@ -70,7 +72,7 @@ export function MotionProvider({ children }: { children: ReactNode }) {
       lenis.destroy();
       lenisRef.current = null;
     };
-  }, [reducedMotion]);
+  }, [reducedMotion, isMobile]);
 
   return (
     <MotionContext.Provider

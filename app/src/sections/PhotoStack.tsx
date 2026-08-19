@@ -43,7 +43,7 @@ export default function PhotoStack() {
           start: "top top",
           end: `+=${(cards.length - 1) * 90}%`,
           pin: true,
-          scrub: 0.7,
+          scrub: isMobile ? true : 0.7,
           anticipatePin: 1,
         },
       });

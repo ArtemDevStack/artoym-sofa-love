@@ -15,7 +15,7 @@ import styles from "./Intro.module.css";
  */
 export default function Intro() {
   const rootRef = useRef<HTMLElement>(null);
-  const { reducedMotion } = useMotion();
+  const { reducedMotion, isMobile } = useMotion();
   const firstPhoto = timeline[0]?.photo ?? "/images/couple/01.jpg";
 
   useGSAP(
@@ -34,7 +34,7 @@ export default function Intro() {
           start: "top top",
           end: "+=280%",
           pin: true,
-          scrub: 0.8,
+          scrub: isMobile ? true : 0.8,
           anticipatePin: 1,
         },
       });

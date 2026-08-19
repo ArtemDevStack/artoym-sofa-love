@@ -38,7 +38,7 @@ export default function FilmStrip() {
           start: "top top",
           end: () => `+=${getDistance()}`,
           pin: true,
-          scrub: 0.6,
+          scrub: isMobile ? true : 0.6,
           anticipatePin: 1,
           invalidateOnRefresh: true,
         },
