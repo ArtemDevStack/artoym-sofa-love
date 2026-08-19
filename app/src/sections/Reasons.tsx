@@ -71,7 +71,9 @@ export default function Reasons() {
 
       <div className={styles.more}>
         <button type="button" className={styles.moreButton} onClick={showRandom}>
-          Ещё одна причина
+          <span className={styles.icon}>✨</span>
+          <span>Нажми, чтобы узнать ещё одну причину</span>
+          <span className={styles.arrow}>→</span>
         </button>
         {extra && (
           <p ref={extraRef} className={`${styles.extra} display`} aria-live="polite">
