@@ -1,0 +1,137 @@
+"use client";
+
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+  type ReactNode,
+} from "react";
+import {
+  loadAllMediaOverrides,
+  removeMediaOverride,
+  saveMediaOverride,
+} from "@/lib/mediaStorage";
+
+export interface MediaItem {
+  src: string;
+  type: "image" | "video";
+  isOverridden?: boolean;
+}
+
+interface MediaContextType {
+  getMedia: (originalSrc: string, defaultType?: "image" | "video") => MediaItem;
+  openEditor: (originalSrc: string, defaultType?: "image" | "video") => void;
+  closeEditor: () => void;
+  replaceMedia: (
+    originalSrc: string,
+    fileOrUrl: File | string,
+    type: "image" | "video"
+  ) => Promise<void>;
+  resetMedia: (originalSrc: string) => Promise<void>;
+  editingTarget: { originalSrc: string; defaultType: "image" | "video" } | null;
+}
+
+const MediaContext = createContext<MediaContextType | null>(null);
+
+export function MediaProvider({ children }: { children: ReactNode }) {
+  const [overrides, setOverrides] = useState<
+    Record<string, { src: string; type: "image" | "video" }>
+  >({});
+  const [editingTarget, setEditingTarget] = useState<{
+    originalSrc: string;
+    defaultType: "image" | "video";
+  } | null>(null);
+
+  useEffect(() => {
+    loadAllMediaOverrides().then((data) => {
+      if (data) setOverrides(data);
+    });
+  }, []);
+
+  const getMedia = useCallback(
+    (originalSrc: string, defaultType: "image" | "video" = "image"): MediaItem => {
+      if (!originalSrc) return { src: "", type: defaultType, isOverridden: false };
+      const custom = overrides[originalSrc];
+      if (custom) {
+        return { src: custom.src, type: custom.type, isOverridden: true };
+      }
+      return { src: originalSrc, type: defaultType, isOverridden: false };
+    },
+    [overrides]
+  );
+
+  const openEditor = useCallback(
+    (originalSrc: string, defaultType: "image" | "video" = "image") => {
+      setEditingTarget({ originalSrc, defaultType });
+    },
+    []
+  );
+
+  const closeEditor = useCallback(() => {
+    setEditingTarget(null);
+  }, []);
+
+  const replaceMedia = useCallback(
+    async (
+      originalSrc: string,
+      fileOrUrl: File | string,
+      type: "image" | "video"
+    ) => {
+      let finalSrc = "";
+      if (typeof fileOrUrl === "string") {
+        finalSrc = fileOrUrl;
+      } else {
+        // Read file as Data URL
+        finalSrc = await new Promise<string>((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = () => resolve(reader.result as string);
+          reader.onerror = () => reject(reader.error);
+          reader.readAsDataURL(fileOrUrl);
+        });
+      }
+
+      await saveMediaOverride(originalSrc, finalSrc, type);
+      setOverrides((prev) => ({
+        ...prev,
+        [originalSrc]: { src: finalSrc, type },
+      }));
+      setEditingTarget(null);
+    },
+    []
+  );
+
+  const resetMedia = useCallback(async (originalSrc: string) => {
+    await removeMediaOverride(originalSrc);
+    setOverrides((prev) => {
+      const next = { ...prev };
+      delete next[originalSrc];
+      return next;
+    });
+    setEditingTarget(null);
+  }, []);
+
+  return (
+    <MediaContext.Provider
+      value={{
+        getMedia,
+        openEditor,
+        closeEditor,
+        replaceMedia,
+        resetMedia,
+        editingTarget,
+      }}
+    >
+      {children}
+    </MediaContext.Provider>
+  );
+}
+
+export function useMedia(): MediaContextType {
+  const ctx = useContext(MediaContext);
+  if (!ctx) {
+    throw new Error("useMedia должен использоваться внутри MediaProvider");
+  }
+  return ctx;
+}

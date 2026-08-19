@@ -2,12 +2,12 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import { useMedia } from "@/context/MediaContext";
 import styles from "./Photo.module.css";
 
 interface PhotoProps {
   src: string;
   alt: string;
-  /** Номер кадра для эстетичного placeholder (берётся из пути, если не передан) */
   index?: number;
   fill?: boolean;
   width?: number;
@@ -15,59 +15,90 @@ interface PhotoProps {
   sizes?: string;
   priority?: boolean;
   className?: string;
+  editable?: boolean;
 }
 
-/**
- * Фотография пары. Пока реальный файл не загружен в public/images/couple/,
- * показывает эстетичный плейсхолдер с номером кадра — без стоковых фото.
- */
 export default function Photo({
   src,
   alt,
-  index,
   fill = true,
   width,
   height,
   sizes = "(max-width: 768px) 100vw, 60vw",
   priority = false,
   className,
+  editable = true,
 }: PhotoProps) {
+  const { getMedia, openEditor } = useMedia();
+  const media = getMedia(src, "image");
   const [failed, setFailed] = useState(false);
-  const num = index ?? extractNumber(src);
 
-  if (failed) {
-    return (
-      <div
-        data-ph=""
-        className={`${styles.placeholder} ${className ?? ""}`}
-        role="img"
-        aria-label={`${alt} (фотография ${num} будет здесь)`}
-      >
-        <span className={styles.frameNo}>
-          {String(num).padStart(2, "0")}
-        </span>
-        <span className={styles.hint}>место для фотографии</span>
-      </div>
+  const handleClick = (e: React.MouseEvent) => {
+    if (!editable) return;
+    e.stopPropagation();
+    openEditor(src, media.type);
+  };
+
+  const renderContent = () => {
+    if (media.type === "video") {
+      return (
+        <video
+          src={media.src}
+          autoPlay
+          muted
+          loop
+          playsInline
+          style={{ width: "100%", height: "100%", objectFit: "cover" }}
+        />
+      );
+    }
+
+    if (failed || !media.src) {
+      return (
+        <div style={{ width: "100%", height: "100%", background: "#1a1713" }} />
+      );
+    }
+
+    if (media.src.startsWith("data:") || media.src.startsWith("blob:")) {
+      return (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={media.src}
+          alt={alt}
+          style={{ width: "100%", height: "100%", objectFit: "cover" }}
+          onError={() => setFailed(true)}
+        />
+      );
+    }
+
+    const common = {
+      src: media.src,
+      alt,
+      sizes,
+      priority,
+      className: className ?? "",
+      onError: () => setFailed(true),
+    } as const;
+
+    return fill ? (
+      <Image {...common} fill style={{ objectFit: "cover" }} />
+    ) : (
+      <Image {...common} width={width ?? 1200} height={height ?? 800} />
     );
-  }
+  };
 
-  const common = {
-    src,
-    alt,
-    sizes,
-    priority,
-    className: `${styles.img} ${className ?? ""}`,
-    onError: () => setFailed(true),
-  } as const;
-
-  return fill ? (
-    <Image {...common} fill style={{ objectFit: "cover" }} />
-  ) : (
-    <Image {...common} width={width ?? 1200} height={height ?? 800} />
+  return (
+    <div
+      className={styles.photoWrapper}
+      onClick={handleClick}
+      title="Нажми, чтобы изменить фото или видео"
+    >
+      {renderContent()}
+      {editable && (
+        <span className={styles.editBadge}>
+          📷 {media.isOverridden ? "Изменено" : "Заменить"}
+        </span>
+      )}
+    </div>
   );
-}
-
-function extractNumber(src: string): number {
-  const m = src.match(/(\d+)(?=\.[a-z]+$)/i);
-  return m ? parseInt(m[1], 10) : 0;
 }

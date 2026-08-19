@@ -28,13 +28,18 @@ import Future from "@/sections/Future";
 import FinalScene from "@/sections/FinalScene";
 import SecretFinal from "@/sections/SecretFinal";
 
+import { MediaProvider } from "@/context/MediaContext";
+import MediaModal from "@/components/MediaModal";
+
 type Phase = "loading" | "entry" | "story";
 
 export default function Page() {
   return (
     <MotionProvider>
       <SecretsProvider>
-        <Experience />
+        <MediaProvider>
+          <Experience />
+        </MediaProvider>
       </SecretsProvider>
     </MotionProvider>
   );
@@ -90,6 +95,7 @@ function Experience() {
           <CustomCursor />
           <ScrollProgress />
           <MusicPlayer />
+          <MediaModal />
         </>
       )}
     </>
