@@ -33,6 +33,10 @@ interface MediaContextType {
   editingTarget: { originalSrc: string; defaultType: "image" | "video" } | null;
   isEditMode: boolean;
   toggleEditMode: () => void;
+  isPinModalOpen: boolean;
+  closePinModal: () => void;
+  authorizeEdit: (pin: string) => boolean;
+  isEditAuthorized: boolean;
 }
 
 const MediaContext = createContext<MediaContextType | null>(null);
@@ -42,6 +46,8 @@ export function MediaProvider({ children }: { children: ReactNode }) {
     Record<string, { src: string; type: "image" | "video" }>
   >({});
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
+  const [isEditAuthorized, setIsEditAuthorized] = useState<boolean>(false);
+  const [isPinModalOpen, setIsPinModalOpen] = useState<boolean>(false);
   const [editingTarget, setEditingTarget] = useState<{
     originalSrc: string;
     defaultType: "image" | "video";
@@ -51,18 +57,42 @@ export function MediaProvider({ children }: { children: ReactNode }) {
     loadAllMediaOverrides().then((data) => {
       if (data) setOverrides(data);
     });
-    const savedMode = localStorage.getItem("love_landing_edit_mode");
-    if (savedMode === "true") {
-      setIsEditMode(true);
+    const savedAuth = localStorage.getItem("love_landing_edit_authorized");
+    if (savedAuth === "true") {
+      setIsEditAuthorized(true);
+      const savedMode = localStorage.getItem("love_landing_edit_mode");
+      if (savedMode === "true") {
+        setIsEditMode(true);
+      }
     }
   }, []);
 
   const toggleEditMode = useCallback(() => {
+    if (!isEditAuthorized) {
+      setIsPinModalOpen(true);
+      return;
+    }
     setIsEditMode((prev) => {
       const next = !prev;
       localStorage.setItem("love_landing_edit_mode", String(next));
       return next;
     });
+  }, [isEditAuthorized]);
+
+  const authorizeEdit = useCallback((pin: string): boolean => {
+    if (pin.trim() === "2203") {
+      setIsEditAuthorized(true);
+      setIsEditMode(true);
+      setIsPinModalOpen(false);
+      localStorage.setItem("love_landing_edit_authorized", "true");
+      localStorage.setItem("love_landing_edit_mode", "true");
+      return true;
+    }
+    return false;
+  }, []);
+
+  const closePinModal = useCallback(() => {
+    setIsPinModalOpen(false);
   }, []);
 
   const getMedia = useCallback(
@@ -138,6 +168,10 @@ export function MediaProvider({ children }: { children: ReactNode }) {
         editingTarget,
         isEditMode,
         toggleEditMode,
+        isPinModalOpen,
+        closePinModal,
+        authorizeEdit,
+        isEditAuthorized,
       }}
     >
       {children}

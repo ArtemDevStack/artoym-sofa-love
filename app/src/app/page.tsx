@@ -31,6 +31,7 @@ import SecretFinal from "@/sections/SecretFinal";
 import { MediaProvider } from "@/context/MediaContext";
 import MediaModal from "@/components/MediaModal";
 import EditModeToggle from "@/components/EditModeToggle";
+import EditPinModal from "@/components/EditPinModal";
 
 type Phase = "loading" | "entry" | "story";
 
@@ -98,6 +99,7 @@ function Experience() {
           <MusicPlayer />
           <MediaModal />
           <EditModeToggle />
+          <EditPinModal />
         </>
       )}
     </>
