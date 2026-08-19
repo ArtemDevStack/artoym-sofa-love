@@ -6,11 +6,11 @@ import { useMotion } from "@/lib/motion";
 import styles from "./AiKnowledge.module.css";
 
 const SUGGESTIONS = [
-  "Расскажи про Артема",
   "Расскажи про Софу",
+  "Кто близкие и друзья Софы?",
+  "Что любит Софа смотреть и делать?",
+  "Расскажи про Артема",
   "Когда и как мы познакомились?",
-  "Какая наша любимая еда и фильм?",
-  "О чём мы мечтаем в будущем?",
 ];
 
 export default function AiKnowledge() {
