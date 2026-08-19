@@ -18,6 +18,15 @@ interface PhotoProps {
   editable?: boolean;
 }
 
+function isVideoPath(src: string): boolean {
+  if (!src) return false;
+  return (
+    /\.(mp4|webm|mov|ogg)(\?.*)?$/i.test(src) ||
+    src.startsWith("data:video/") ||
+    src.startsWith("blob:")
+  );
+}
+
 export default function Photo({
   src,
   alt,
@@ -30,17 +39,19 @@ export default function Photo({
   editable = true,
 }: PhotoProps) {
   const { getMedia, openEditor } = useMedia();
-  const media = getMedia(src, "image");
+  const defaultType = isVideoPath(src) ? "video" : "image";
+  const media = getMedia(src, defaultType);
   const [failed, setFailed] = useState(false);
+  const isVideo = media.type === "video" || isVideoPath(media.src);
 
   const handleClick = (e: React.MouseEvent) => {
     if (!editable) return;
     e.stopPropagation();
-    openEditor(src, media.type);
+    openEditor(src, isVideo ? "video" : "image");
   };
 
   const renderContent = () => {
-    if (media.type === "video") {
+    if (isVideo) {
       return (
         <video
           src={media.src}
