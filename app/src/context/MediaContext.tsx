@@ -80,7 +80,7 @@ export function MediaProvider({ children }: { children: ReactNode }) {
   }, [isEditAuthorized]);
 
   const authorizeEdit = useCallback((pin: string): boolean => {
-    if (pin.trim() === "2203") {
+    if (pin.trim() === "237") {
       setIsEditAuthorized(true);
       setIsEditMode(true);
       setIsPinModalOpen(false);

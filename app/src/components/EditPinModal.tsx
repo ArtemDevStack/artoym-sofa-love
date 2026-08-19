@@ -48,8 +48,8 @@ export default function EditPinModal() {
         <form onSubmit={handleSubmit} className={styles.pinForm}>
           <input
             type="password"
-            maxLength={4}
-            placeholder="••••"
+            maxLength={10}
+            placeholder="•••"
             value={pin}
             onChange={(e) => {
               setPin(e.target.value);
@@ -64,10 +64,6 @@ export default function EditPinModal() {
               Неверный PIN-код. Попробуйте ещё раз!
             </span>
           )}
-
-          <p className={styles.hintText}>
-            💡 Подсказка: дата нашего праздника (2203)
-          </p>
 
           <div className={styles.actions}>
             <button
