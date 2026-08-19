@@ -30,6 +30,7 @@ import SecretFinal from "@/sections/SecretFinal";
 
 import { MediaProvider } from "@/context/MediaContext";
 import MediaModal from "@/components/MediaModal";
+import EditModeToggle from "@/components/EditModeToggle";
 
 type Phase = "loading" | "entry" | "story";
 
@@ -96,6 +97,7 @@ function Experience() {
           <ScrollProgress />
           <MusicPlayer />
           <MediaModal />
+          <EditModeToggle />
         </>
       )}
     </>

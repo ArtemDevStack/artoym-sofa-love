@@ -31,6 +31,8 @@ interface MediaContextType {
   ) => Promise<void>;
   resetMedia: (originalSrc: string) => Promise<void>;
   editingTarget: { originalSrc: string; defaultType: "image" | "video" } | null;
+  isEditMode: boolean;
+  toggleEditMode: () => void;
 }
 
 const MediaContext = createContext<MediaContextType | null>(null);
@@ -39,6 +41,7 @@ export function MediaProvider({ children }: { children: ReactNode }) {
   const [overrides, setOverrides] = useState<
     Record<string, { src: string; type: "image" | "video" }>
   >({});
+  const [isEditMode, setIsEditMode] = useState<boolean>(false);
   const [editingTarget, setEditingTarget] = useState<{
     originalSrc: string;
     defaultType: "image" | "video";
@@ -47,6 +50,18 @@ export function MediaProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     loadAllMediaOverrides().then((data) => {
       if (data) setOverrides(data);
+    });
+    const savedMode = localStorage.getItem("love_landing_edit_mode");
+    if (savedMode === "true") {
+      setIsEditMode(true);
+    }
+  }, []);
+
+  const toggleEditMode = useCallback(() => {
+    setIsEditMode((prev) => {
+      const next = !prev;
+      localStorage.setItem("love_landing_edit_mode", String(next));
+      return next;
     });
   }, []);
 
@@ -121,6 +136,8 @@ export function MediaProvider({ children }: { children: ReactNode }) {
         replaceMedia,
         resetMedia,
         editingTarget,
+        isEditMode,
+        toggleEditMode,
       }}
     >
       {children}

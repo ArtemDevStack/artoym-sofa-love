@@ -38,14 +38,16 @@ export default function Photo({
   className,
   editable = true,
 }: PhotoProps) {
-  const { getMedia, openEditor } = useMedia();
+  const { getMedia, openEditor, isEditMode } = useMedia();
   const defaultType = isVideoPath(src) ? "video" : "image";
   const media = getMedia(src, defaultType);
   const [failed, setFailed] = useState(false);
   const isVideo = media.type === "video" || isVideoPath(media.src);
 
+  const canEdit = editable && isEditMode;
+
   const handleClick = (e: React.MouseEvent) => {
-    if (!editable) return;
+    if (!canEdit) return;
     e.stopPropagation();
     openEditor(src, isVideo ? "video" : "image");
   };
@@ -101,11 +103,12 @@ export default function Photo({
   return (
     <div
       className={styles.photoWrapper}
+      data-editable={canEdit ? "true" : "false"}
       onClick={handleClick}
-      title="Нажми, чтобы изменить фото или видео"
+      title={canEdit ? "Нажми, чтобы изменить фото или видео" : undefined}
     >
       {renderContent()}
-      {editable && (
+      {canEdit && (
         <span className={styles.editBadge}>
           📷 {media.isOverridden ? "Изменено" : "Заменить"}
         </span>
