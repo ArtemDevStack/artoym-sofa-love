@@ -61,7 +61,8 @@ export default function Future() {
 
   return (
     <section ref={rootRef} className={styles.root} aria-label="Наше будущее">
-      <h2 className={`${styles.heading} display`}>
+      {/* Якорь: досюда долистали — ForgiveModal показывает вопрос */}
+      <h2 data-forgive-anchor className={`${styles.heading} display`}>
         Но больше всего мне нравится то, что наша история ещё не закончилась.
       </h2>
 

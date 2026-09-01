@@ -10,6 +10,7 @@ import PrivateEntry from "@/components/PrivateEntry";
 import CustomCursor from "@/components/CustomCursor";
 import MusicPlayer from "@/components/MusicPlayer";
 import ScrollProgress from "@/components/ScrollProgress";
+import SectionWhispers from "@/components/SectionWhispers";
 
 import Intro from "@/sections/Intro";
 import Timeline from "@/sections/Timeline";
@@ -105,6 +106,7 @@ function Experience() {
         <>
           <CustomCursor />
           <ScrollProgress />
+          <SectionWhispers />
           <MusicPlayer />
           <MediaModal />
           <EditModeToggle />

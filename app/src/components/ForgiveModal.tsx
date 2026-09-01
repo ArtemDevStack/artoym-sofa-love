@@ -6,6 +6,9 @@ import styles from "./ForgiveModal.module.css";
 
 const SEEN_KEY = "forgive-answered";
 
+/** Пауза после появления фразы — чтобы её успели прочитать */
+const READ_DELAY_MS = 1400;
+
 /**
  * Финальная модалка: появляется, когда страница долистана до конца.
  * «Нет» уворачивается от курсора и подписывается новой репликой,
@@ -19,37 +22,81 @@ export default function ForgiveModal() {
   const dialogRef = useRef<HTMLDivElement>(null);
 
   /**
-   * Показываем один раз — когда страница долистана до низа.
+   * Показываем один раз — когда долистали до фразы «наша история ещё
+   * не закончилась» (якорь [data-forgive-anchor] в секции «Наше будущее»).
    *
-   * Именно «до низа», а не «финальная секция видна на N %»: секции здесь
-   * выше экрана, и такая доля недостижима на телефоне. И проверяем сразу
-   * при монтировании — если страницу открыли уже внизу, события scroll
-   * не случится вообще.
+   * Ждём, пока строка окажется в кадре целиком, и даём её прочитать,
+   * прежде чем перекрыть модалкой.
+   *
+   * Если якоря вдруг нет — падаем на низ страницы. Именно «низ», а не
+   * «секция видна на N %»: секции выше экрана телефона, и такая доля
+   * там недостижима.
    */
   useEffect(() => {
     if (window.localStorage.getItem(SEEN_KEY)) return;
 
-    let done = false;
+    let fired = false;
+    let delay: number | undefined;
+
+    const fire = () => {
+      if (fired) return;
+      fired = true;
+      delay = window.setTimeout(() => setOpen(true), READ_DELAY_MS);
+    };
+
+    const anchor = document.querySelector("[data-forgive-anchor]");
+
+    /** Фраза целиком в кадре — либо её уже пролистали выше */
+    const anchorReached = () => {
+      if (!anchor) return false;
+      const r = anchor.getBoundingClientRect();
+      const seenWhole = r.top >= 0 && r.bottom <= window.innerHeight;
+      const scrolledPast = r.bottom < window.innerHeight * 0.5;
+      return seenWhole || scrolledPast;
+    };
 
     const check = () => {
-      if (done) return;
-      const reachedBottom =
-        window.innerHeight + window.scrollY >=
-        document.documentElement.scrollHeight - 150;
-      if (!reachedBottom) return;
+      if (fired) return;
+      const reached = anchor
+        ? anchorReached()
+        : window.innerHeight + window.scrollY >=
+          document.documentElement.scrollHeight - 150;
+      if (reached) {
+        fire();
+        cleanup();
+      }
+    };
 
-      done = true;
-      setOpen(true);
+    // Два независимых пути: Observer не присылает событий, пока вкладка
+    // скрыта, а обработчик scroll не сработает, если страницу открыли
+    // уже на нужном месте. Вместе они закрывают оба случая.
+    let observer: IntersectionObserver | undefined;
+    if (anchor) {
+      observer = new IntersectionObserver(
+        (entries) => {
+          if (entries.some((e) => e.isIntersecting)) {
+            fire();
+            cleanup();
+          }
+        },
+        { threshold: 0.9 },
+      );
+      observer.observe(anchor);
+    }
+
+    function cleanup() {
+      observer?.disconnect();
       window.removeEventListener("scroll", check);
       window.removeEventListener("resize", check);
-    };
+    }
 
     check();
     window.addEventListener("scroll", check, { passive: true });
     window.addEventListener("resize", check);
+
     return () => {
-      window.removeEventListener("scroll", check);
-      window.removeEventListener("resize", check);
+      cleanup();
+      window.clearTimeout(delay);
     };
   }, []);
 

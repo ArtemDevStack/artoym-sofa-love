@@ -1,0 +1,61 @@
+.layer {
+  position: fixed;
+  inset: 0;
+  z-index: 150;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--pad);
+  /* Слой не должен мешать скроллу и кликам по секциям */
+  pointer-events: none;
+}
+
+.card {
+  pointer-events: auto;
+  max-width: 26ch;
+  padding: clamp(18px, 3.5vw, 28px) clamp(24px, 5vw, 44px);
+  text-align: center;
+  font-family: var(--serif);
+  font-size: clamp(18px, 3vw, 28px);
+  font-style: italic;
+  line-height: 1.5;
+  color: var(--ink);
+  text-wrap: balance;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: rgba(20, 18, 15, 0.92);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
+  cursor: default;
+  animation: whisperIn 2.6s var(--ease-out) both;
+}
+
+/* Появление и уход — одной дорожкой, чтобы не городить состояния */
+@keyframes whisperIn {
+  0% {
+    opacity: 0;
+    transform: translateY(18px) scale(0.96);
+  }
+  14% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  82% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.98);
+  }
+}
+
+.static {
+  animation: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    animation: none;
+  }
+}
