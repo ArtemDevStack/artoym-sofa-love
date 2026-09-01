@@ -21,6 +21,7 @@ import Counter from "@/sections/Counter";
 import MonthLetter from "@/sections/MonthLetter";
 import NextMeeting from "@/sections/NextMeeting";
 import HugCounter from "@/sections/HugCounter";
+import FlowersLink from "@/sections/FlowersLink";
 import MissYou from "@/sections/MissYou";
 import OurNumbers from "@/sections/OurNumbers";
 import OurPlaces from "@/sections/OurPlaces";
@@ -95,6 +96,7 @@ function Experience() {
           <LoveLetter />
           <Future />
           <HugCounter />
+          <FlowersLink />
           <SecretFinal />
           <FinalScene />
         </main>

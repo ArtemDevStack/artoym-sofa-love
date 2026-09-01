@@ -178,6 +178,12 @@ export interface FlowersContent {
   title: string;
   lines: string[];
   signature: string;
+  /** Карточка на главной, ведущая на /flowers */
+  teaser: {
+    eyebrow: string;
+    title: string;
+    cta: string;
+  };
 }
 
 export interface HugsContent {
