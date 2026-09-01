@@ -111,3 +111,26 @@ export interface SecretFinalContent {
   text: string;
   photo: string;
 }
+
+export interface FirstMonthDay {
+  /** День месяца, 1..31 */
+  day: number;
+  /** Короткая подпись дня. Пустой день — просто тихая точка в календаре. */
+  note: string;
+  /** Необязательная её или моя фраза из переписки — дословно */
+  quote?: string;
+  /** Кому принадлежит цитата */
+  quoteBy?: "me" | "her";
+}
+
+export interface FirstMonthContent {
+  /** ISO-дата первого дня месяца отношений, напр. "2026-08-01" */
+  startDate: string;
+  /** Сколько клеток в календаре — длина месяца */
+  length: number;
+  eyebrow: string;
+  title: string;
+  /** Подпись под календарём — без пафоса, одна-две строки */
+  outro: string[];
+  days: FirstMonthDay[];
+}

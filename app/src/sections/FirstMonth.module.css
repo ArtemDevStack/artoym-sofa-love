@@ -1,0 +1,201 @@
+.root {
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(20px, 3.5vh, 36px);
+  padding: 12vh var(--pad);
+  text-align: center;
+}
+
+.eyebrow {
+  font-variant-numeric: tabular-nums;
+}
+
+.title {
+  font-size: clamp(34px, 6.5vw, 84px);
+  color: var(--ink);
+  margin-bottom: clamp(8px, 2vh, 20px);
+}
+
+/* ── Календарь ──────────────────────────────────────────── */
+
+.calendar {
+  width: 100%;
+  max-width: 520px;
+}
+
+.weekdays,
+.grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: clamp(6px, 1.4vw, 12px);
+}
+
+.weekdays {
+  margin-bottom: clamp(8px, 1.6vw, 14px);
+}
+
+.weekday {
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+  opacity: 0.7;
+}
+
+.blank {
+  aspect-ratio: 1;
+}
+
+.cell {
+  position: relative;
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 3px;
+  font-size: clamp(12px, 2.1vw, 15px);
+  font-variant-numeric: tabular-nums;
+  transition:
+    color 0.4s var(--ease-out),
+    background-color 0.4s var(--ease-out),
+    border-color 0.4s var(--ease-out),
+    transform 0.4s var(--ease-out);
+}
+
+/* Дни без записи — тихие, но не невидимые */
+.quiet {
+  color: var(--muted);
+  opacity: 0.28;
+  border: 1px solid var(--line-soft);
+}
+
+/* Дни с записью */
+.marked {
+  color: var(--ink-dim);
+  border: 1px solid var(--line);
+  background: var(--bg-soft);
+}
+
+.marked:hover {
+  color: var(--ink);
+  border-color: var(--beige);
+  transform: translateY(-2px);
+}
+
+.active {
+  color: var(--bg);
+  background: var(--beige);
+  border-color: var(--beige);
+}
+
+.dot {
+  position: absolute;
+  bottom: 5px;
+  left: 50%;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--accent);
+  transform: translateX(-50%);
+  transition: background-color 0.4s var(--ease-out);
+}
+
+.active .dot {
+  background: var(--bg);
+}
+
+/* ── Раскрытая запись дня ───────────────────────────────── */
+
+.panel {
+  width: 100%;
+  max-width: 560px;
+  min-height: clamp(150px, 22vh, 210px);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: clamp(12px, 2.5vh, 24px);
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  animation: fade 0.55s var(--ease-out) both;
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.cardDate {
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+
+.cardNote {
+  font-family: var(--serif);
+  font-size: clamp(17px, 2.4vw, 23px);
+  line-height: 1.5;
+  color: var(--ink);
+  text-wrap: balance;
+}
+
+.quote {
+  margin-top: 4px;
+  padding-left: 16px;
+  border-left: 1px solid var(--line);
+  font-size: 14px;
+  font-style: italic;
+  line-height: 1.6;
+  color: var(--ink-dim);
+  text-align: left;
+}
+
+.cite {
+  display: block;
+  margin-top: 6px;
+  font-size: 11px;
+  font-style: normal;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ── Подпись ────────────────────────────────────────────── */
+
+.outro {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-width: 48ch;
+}
+
+.outroLine {
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--muted);
+  text-wrap: balance;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    animation: none;
+  }
+  .marked:hover {
+    transform: none;
+  }
+}

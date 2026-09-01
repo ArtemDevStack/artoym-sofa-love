@@ -17,6 +17,7 @@ import PhotoStack from "@/sections/PhotoStack";
 import FilmStrip from "@/sections/FilmStrip";
 import MemoryCollage from "@/sections/MemoryCollage";
 import Counter from "@/sections/Counter";
+import FirstMonth from "@/sections/FirstMonth";
 import OurNumbers from "@/sections/OurNumbers";
 import OurPlaces from "@/sections/OurPlaces";
 import OnlyWeUnderstand from "@/sections/OnlyWeUnderstand";
@@ -77,6 +78,7 @@ function Experience() {
           <FilmStrip />
           <MemoryCollage />
           <Counter />
+          <FirstMonth />
           <OurNumbers />
           <OurPlaces />
           <OnlyWeUnderstand />
