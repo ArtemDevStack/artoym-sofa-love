@@ -139,21 +139,34 @@ export default function FirstMonth() {
         </div>
       </div>
 
+      <p className={styles.progress}>
+        отмечено {firstMonth.days.length} из {firstMonth.length}
+      </p>
+
       <div className={styles.panel} aria-live="polite">
         {active && (
           <article key={active.day} className={styles.card}>
-            <p className={`${styles.cardDate} mono-num`}>
-              {String(active.day).padStart(2, "0")} августа
-            </p>
-            <p className={styles.cardNote}>{active.note}</p>
-            {active.quote && (
-              <blockquote className={styles.quote}>
-                «{active.quote}»
-                <cite className={styles.cite}>
-                  {active.quoteBy === "her" ? "— она" : "— я"}
-                </cite>
-              </blockquote>
+            {active.photo && (
+              <figure className={styles.polaroid}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={active.photo} alt="" className={styles.polaroidImg} />
+              </figure>
             )}
+
+            <div className={styles.cardText}>
+              <p className={`${styles.cardDate} mono-num`}>
+                {String(active.day).padStart(2, "0")} августа
+              </p>
+              <p className={styles.cardNote}>{active.note}</p>
+              {active.quote && (
+                <blockquote className={styles.quote}>
+                  «{active.quote}»
+                  <cite className={styles.cite}>
+                    {active.quoteBy === "her" ? "— она" : "— я"}
+                  </cite>
+                </blockquote>
+              )}
+            </div>
           </article>
         )}
       </div>

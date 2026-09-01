@@ -1,0 +1,145 @@
+.root {
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10vh var(--pad);
+}
+
+.stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  text-align: center;
+}
+
+.button {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: clamp(26px, 4vw, 38px) clamp(38px, 6vw, 58px);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--bg-soft);
+  transition:
+    transform 0.35s var(--ease-out),
+    border-color 0.45s var(--ease-out),
+    background-color 0.45s var(--ease-out);
+}
+
+.button:hover {
+  border-color: var(--beige);
+  background: var(--bg-lift);
+  transform: translateY(-3px);
+}
+
+.button:active {
+  transform: scale(0.96);
+}
+
+.heartIcon {
+  font-size: clamp(30px, 4.5vw, 44px);
+  line-height: 1;
+  color: var(--accent);
+  transition: transform 0.35s var(--ease-out);
+}
+
+.button:hover .heartIcon {
+  transform: scale(1.12);
+}
+
+.buttonLabel {
+  font-size: 11px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+}
+
+/* ── Разлетающиеся сердечки ─────────────────────────────── */
+
+.burst {
+  position: absolute;
+  top: 22%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+.flyHeart {
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--accent);
+  line-height: 1;
+  animation: fly 1.5s var(--ease-out) forwards;
+}
+
+@keyframes fly {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, 0) scale(0.5) rotate(0deg);
+  }
+  15% {
+    opacity: 1;
+    transform: translate(-50%, -14px) scale(1) rotate(var(--rot));
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(-50% + var(--dx)), -150px) scale(0.85)
+      rotate(var(--rot));
+  }
+}
+
+/* ── Счётчик ────────────────────────────────────────────── */
+
+.hint {
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--muted);
+  opacity: 0.6;
+}
+
+.readout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  min-height: 66px;
+}
+
+.count {
+  font-size: clamp(32px, 5vw, 52px);
+  line-height: 1;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.milestone {
+  font-family: var(--serif);
+  font-size: clamp(14px, 1.8vw, 17px);
+  font-style: italic;
+  color: var(--beige);
+}
+
+.empty {
+  font-family: var(--serif);
+  font-size: 15px;
+  font-style: italic;
+  color: var(--muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button:hover,
+  .button:active {
+    transform: none;
+  }
+  .flyHeart {
+    animation: none;
+    display: none;
+  }
+}

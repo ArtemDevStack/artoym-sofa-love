@@ -121,6 +121,41 @@ export interface FirstMonthDay {
   quote?: string;
   /** Кому принадлежит цитата */
   quoteBy?: "me" | "her";
+  /** Фото этого дня, напр. "/images/couple/07.jpg" */
+  photo?: string;
+}
+
+export interface MonthLetterContent {
+  eyebrow: string;
+  /** Подпись на конверте */
+  envelopeTo: string;
+  /** Текст на сургучной печати — 1–2 символа */
+  seal: string;
+  title: string;
+  /** Абзацы письма */
+  lines: string[];
+  signature: string;
+  /** Приписка после подписи */
+  ps?: string;
+}
+
+export interface NextMeetingContent {
+  /** ISO-дата и время следующей встречи. null — дата ещё не назначена. */
+  date: string | null;
+  eyebrow: string;
+  title: string;
+  place?: string;
+  /** Что показать, когда даты ещё нет */
+  waitingText: string;
+  /** Подпись под счётчиком */
+  note: string;
+}
+
+export interface HugsContent {
+  title: string;
+  hint: string;
+  /** Подписи по мере роста счётчика: [порог, текст] */
+  milestones: { at: number; text: string }[];
 }
 
 export interface FirstMonthContent {

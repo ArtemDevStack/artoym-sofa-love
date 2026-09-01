@@ -18,6 +18,9 @@ import FilmStrip from "@/sections/FilmStrip";
 import MemoryCollage from "@/sections/MemoryCollage";
 import Counter from "@/sections/Counter";
 import FirstMonth from "@/sections/FirstMonth";
+import MonthLetter from "@/sections/MonthLetter";
+import NextMeeting from "@/sections/NextMeeting";
+import HugCounter from "@/sections/HugCounter";
 import OurNumbers from "@/sections/OurNumbers";
 import OurPlaces from "@/sections/OurPlaces";
 import OnlyWeUnderstand from "@/sections/OnlyWeUnderstand";
@@ -79,6 +82,8 @@ function Experience() {
           <MemoryCollage />
           <Counter />
           <FirstMonth />
+          <MonthLetter />
+          <NextMeeting />
           <OurNumbers />
           <OurPlaces />
           <OnlyWeUnderstand />
@@ -87,6 +92,7 @@ function Experience() {
           <Letters />
           <LoveLetter />
           <Future />
+          <HugCounter />
           <SecretFinal />
           <FinalScene />
         </main>
