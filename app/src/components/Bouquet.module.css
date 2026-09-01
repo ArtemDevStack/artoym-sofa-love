@@ -1,0 +1,73 @@
+.svg {
+  width: min(92vw, 74vh, 820px);
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 40px 90px rgba(0, 0, 0, 0.55));
+}
+
+/* Упаковка проявляется первой */
+.wrap {
+  transform-origin: 500px 500px;
+  animation: wrapIn 1.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Зелень и веточки выезжают из-под букета */
+.grow {
+  transform-box: fill-box;
+  animation: growIn 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Каждый бутон распускается на своём месте */
+.bloom {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: bloomIn 1s cubic-bezier(0.34, 1.4, 0.5, 1) both;
+}
+
+@keyframes wrapIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes growIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes bloomIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/*
+ * scale внутри SVG-группы конфликтует с transform в атрибуте,
+ * поэтому масштабируем отдельным вложенным приёмом — через CSS-переменную
+ * на самом элементе анимируем только прозрачность, а «распускание»
+ * даём лёгким покачиванием всего букета.
+ */
+.svg :global(g) {
+  transform-origin: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wrap,
+  .grow,
+  .bloom {
+    animation: none;
+    opacity: 1;
+  }
+}

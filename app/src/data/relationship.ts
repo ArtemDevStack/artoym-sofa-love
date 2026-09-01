@@ -28,6 +28,7 @@
 import type {
   AccessConfig,
   Artifact,
+  FlowersContent,
   ForgiveContent,
   FuturePlan,
   HugsContent,
@@ -463,6 +464,18 @@ export const forgive: ForgiveContent = {
     "Люблю тебя.",
   ],
   closeLabel: "закрыть",
+};
+
+/* ── Страница с цветами (/flowers) ──────────────────────── */
+
+export const flowers: FlowersContent = {
+  eyebrow: "тебе",
+  title: "Букет, который не завянет",
+  lines: [
+    "Настоящие стоят неделю. Этот будет здесь всегда — открывай, когда захочешь.",
+    "Каждый цветок тут нарисован отдельно. Как и всё остальное на этом сайте.",
+  ],
+  signature: "твой Артем",
 };
 
 /* ── Будущее ────────────────────────────────────────────── */

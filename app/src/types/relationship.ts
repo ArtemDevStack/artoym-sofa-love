@@ -173,6 +173,13 @@ export interface ForgiveContent {
   closeLabel: string;
 }
 
+export interface FlowersContent {
+  eyebrow: string;
+  title: string;
+  lines: string[];
+  signature: string;
+}
+
 export interface HugsContent {
   title: string;
   hint: string;
