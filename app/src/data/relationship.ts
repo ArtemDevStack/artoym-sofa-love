@@ -129,32 +129,38 @@ export const timeline: TimelineEvent[] = [
  */
 export const stackPhotos: Memory[] = [
   { id: "s1", photo: "/images/couple/08.jpg", tilt: -4 },
-  { id: "s2", photo: "/images/couple/03.jpg", tilt: 3 },
+  { id: "s2", photo: "/images/couple/36.jpg", tilt: 3 },
   { id: "s3", photo: "/images/couple/06.jpg", tilt: -2 },
-  { id: "s4", photo: "/images/couple/26.jpg", tilt: 5 },
-  { id: "s5", photo: "/images/couple/24.jpg", tilt: -3 },
+  { id: "s4", photo: "/images/couple/33.jpg", tilt: 5 },
+  { id: "s5", photo: "/images/couple/26.jpg", tilt: -3 },
 ];
 
 /* ── Киноплёнка ─────────────────────────────────────────── */
 
+/**
+ * msg-01…msg-10 — telegram-кружки из «исходники», подготовленные под сайт:
+ * 720×720, круглая маска на размытом фоне из самого кадра. Исходники были
+ * 400×400 — в рамке во всю ширину они выглядели бы мыльными.
+ * msg-01 — Софа складывает сердечко руками.
+ */
 export const filmFrames: Memory[] = [
-  { id: "f1", photo: "/images/couple/01.jpg", video: "/video/video1.mp4", tilt: 0 },
-  { id: "f2", photo: "/images/couple/07.jpg", tilt: 0 },
-  { id: "f3", photo: "/images/couple/02.jpg", video: "/video/video2.mp4", tilt: 0 },
-  { id: "f4", photo: "/images/couple/05.jpg", tilt: 0 },
-  { id: "f5", photo: "/images/couple/29.jpg", video: "/video/video3.mp4", tilt: 0 },
-  { id: "f6", photo: "/images/couple/27.jpg", video: "/video/video4.mp4", tilt: 0 },
+  { id: "f1", photo: "/images/couple/08.jpg", video: "/video/msg-06.mp4", tilt: 0 },
+  { id: "f2", photo: "/images/couple/33.jpg", tilt: 0 },
+  { id: "f3", photo: "/images/couple/06.jpg", video: "/video/msg-02.mp4", tilt: 0 },
+  { id: "f4", photo: "/images/couple/36.jpg", tilt: 0 },
+  { id: "f5", photo: "/images/couple/26.jpg", video: "/video/msg-07.mp4", tilt: 0 },
+  { id: "f6", photo: "/images/couple/37.jpg", video: "/video/msg-01.mp4", tilt: 0 },
 ];
 
 /* ── Коллаж воспоминаний ────────────────────────────────── */
 
 export const collagePhotos: Memory[] = [
   { id: "c1", photo: "/images/couple/02.jpg", tilt: -6 },
-  { id: "c2", photo: "/images/couple/06.jpg", video: "/video/video2.mp4", tilt: 4 },
-  { id: "c3", photo: "/images/couple/24.jpg", tilt: -3 },
-  { id: "c4", photo: "/images/couple/26.jpg", video: "/video/video3.mp4", tilt: 7 },
-  { id: "c5", photo: "/images/couple/29.jpg", tilt: -5 },
-  { id: "c6", photo: "/images/couple/07.jpg", tilt: 2 },
+  { id: "c2", photo: "/images/couple/24.jpg", video: "/video/msg-03.mp4", tilt: 4 },
+  { id: "c3", photo: "/images/couple/35.jpg", tilt: -3 },
+  { id: "c4", photo: "/images/couple/07.jpg", video: "/video/msg-04.mp4", tilt: 7 },
+  { id: "c5", photo: "/images/couple/38.jpg", tilt: -5 },
+  { id: "c6", photo: "/images/couple/01.jpg", video: "/video/msg-08.mp4", tilt: 2 },
 ];
 
 /* ── Цифры ──────────────────────────────────────────────── */

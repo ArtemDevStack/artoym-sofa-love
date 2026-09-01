@@ -21,7 +21,7 @@ export interface TimelineEvent {
   description: string;
   /** Путь к фото, напр. "/images/couple/01.jpg" */
   photo: string;
-  /** Опциональный путь к видео, напр. "/video/video1.mp4" */
+  /** Опциональный путь к видео, напр. "/video/msg-01.mp4" */
   video?: string;
   location?: string;
   /** Вариант механики сцены — каждая крупная сцена имеет свою */
