@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { MotionProvider } from "@/lib/motion";
 import { SecretsProvider } from "@/hooks/useSecrets";
+import { SoundtrackProvider } from "@/context/SoundtrackContext";
 import { ScrollTrigger } from "@/lib/gsap";
 
 import Preloader from "@/components/Preloader";
@@ -46,7 +47,9 @@ export default function Page() {
     <MotionProvider>
       <SecretsProvider>
         <MediaProvider>
-          <Experience />
+          <SoundtrackProvider>
+            <Experience />
+          </SoundtrackProvider>
         </MediaProvider>
       </SecretsProvider>
     </MotionProvider>

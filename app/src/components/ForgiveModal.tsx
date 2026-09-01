@@ -1,7 +1,8 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { forgive } from "@/data/relationship";
+import { forgive, soundCues } from "@/data/relationship";
+import { useSoundtrack } from "@/context/SoundtrackContext";
 import styles from "./ForgiveModal.module.css";
 
 const SEEN_KEY = "forgive-answered";
@@ -20,6 +21,7 @@ export default function ForgiveModal() {
   const [dodges, setDodges] = useState(0);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
   const dialogRef = useRef<HTMLDivElement>(null);
+  const { playCue, stopCue } = useSoundtrack();
 
   /**
    * Показываем один раз — когда долистали до фразы «наша история ещё
@@ -100,6 +102,13 @@ export default function ForgiveModal() {
     };
   }, []);
 
+  // Пока модалка на экране — играет своя песня, потом возвращается фон
+  useEffect(() => {
+    if (!open) return;
+    playCue(soundCues.forgive);
+    return () => stopCue();
+  }, [open, playCue, stopCue]);
+
   // Пока открыта — фон не скроллится
   useEffect(() => {
     if (!open) return;
@@ -177,11 +186,13 @@ export default function ForgiveModal() {
               </button>
             </div>
 
-            {dodges >= forgive.escapeAfter && (
-              <button type="button" className={styles.escape} onClick={close}>
-                {forgive.escapeLabel}
-              </button>
-            )}
+            {forgive.escapeAfter !== undefined &&
+              forgive.escapeLabel &&
+              dodges >= forgive.escapeAfter && (
+                <button type="button" className={styles.escape} onClick={close}>
+                  {forgive.escapeLabel}
+                </button>
+              )}
           </>
         ) : (
           <>

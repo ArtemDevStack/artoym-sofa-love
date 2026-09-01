@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { song } from "@/data/relationship";
+import { useSoundtrack } from "@/context/SoundtrackContext";
 import styles from "./MusicPlayer.module.css";
 
 /**
@@ -12,12 +13,15 @@ export default function MusicPlayer() {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [playing, setPlaying] = useState(false);
   const [available, setAvailable] = useState(true);
+  const { registerBackground } = useSoundtrack();
 
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
 
     audio.volume = 0.6;
+    // Отдаём плеер саундтреку: он приглушает фон, когда играет трек момента
+    registerBackground(audio);
 
     const onError = () => {
       console.warn("Audio load error:", song.src);
@@ -45,12 +49,13 @@ export default function MusicPlayer() {
     }
 
     return () => {
+      registerBackground(null);
       audio.removeEventListener("error", onError);
       audio.removeEventListener("ended", onEnded);
       audio.removeEventListener("play", onPlay);
       audio.removeEventListener("pause", onPause);
     };
-  }, []);
+  }, [registerBackground]);
 
   const toggle = async () => {
     const audio = audioRef.current;

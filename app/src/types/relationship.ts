@@ -138,6 +138,15 @@ export interface NextMeetingContent {
   note: string;
 }
 
+/** Трек, который перебивает фоновую песню в конкретный момент */
+export interface SoundCue {
+  src: string;
+  /** С какой секунды начинать — обычно начало припева */
+  startAt?: number;
+  title: string;
+  artist: string;
+}
+
 export interface MissYouContent {
   eyebrow: string;
   title: string;
@@ -165,9 +174,9 @@ export interface ForgiveContent {
   yesLabel: string;
   /** Подписи кнопки «Нет» — по одной на каждый побег */
   noLabels: string[];
-  /** После скольких побегов показать честный выход */
-  escapeAfter: number;
-  escapeLabel: string;
+  /** После скольких побегов показать честный выход. Не задано — выхода нет */
+  escapeAfter?: number;
+  escapeLabel?: string;
   thanksTitle: string;
   thanksLines: string[];
   closeLabel: string;
