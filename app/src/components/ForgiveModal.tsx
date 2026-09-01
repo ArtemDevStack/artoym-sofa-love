@@ -1,8 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { forgive, soundCues } from "@/data/relationship";
-import { useSoundtrack } from "@/context/SoundtrackContext";
+import { forgive } from "@/data/relationship";
 import styles from "./ForgiveModal.module.css";
 
 const SEEN_KEY = "forgive-answered";
@@ -21,7 +20,6 @@ export default function ForgiveModal() {
   const [dodges, setDodges] = useState(0);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
   const dialogRef = useRef<HTMLDivElement>(null);
-  const { playCue, stopCue } = useSoundtrack();
 
   /**
    * Показываем один раз — когда долистали до фразы «наша история ещё
@@ -101,13 +99,6 @@ export default function ForgiveModal() {
       window.clearTimeout(delay);
     };
   }, []);
-
-  // Пока модалка на экране — играет своя песня, потом возвращается фон
-  useEffect(() => {
-    if (!open) return;
-    playCue(soundCues.forgive);
-    return () => stopCue();
-  }, [open, playCue, stopCue]);
 
   // Пока открыта — фон не скроллится
   useEffect(() => {

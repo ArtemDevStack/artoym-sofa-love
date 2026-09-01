@@ -2,8 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useMotion } from "@/lib/motion";
-import { missYou, soundCues } from "@/data/relationship";
-import { useSoundtrack } from "@/context/SoundtrackContext";
+import { missYou } from "@/data/relationship";
 import styles from "./MissYou.module.css";
 
 /** Сколько держать до 100 % */
@@ -21,7 +20,6 @@ export default function MissYou() {
   const [done, setDone] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const { reducedMotion } = useMotion();
-  const { playCue, stopCue } = useSoundtrack();
 
   const raf = useRef<number | null>(null);
   const heldRef = useRef(false);
@@ -120,13 +118,6 @@ export default function MissYou() {
   useEffect(() => {
     if (done) setModalOpen(true);
   }, [done]);
-
-  // Пока признание на экране — играет своя песня, потом возвращается фон
-  useEffect(() => {
-    if (!modalOpen) return;
-    playCue(soundCues.missYou);
-    return () => stopCue();
-  }, [modalOpen, playCue, stopCue]);
 
   useEffect(() => {
     if (!modalOpen) return;

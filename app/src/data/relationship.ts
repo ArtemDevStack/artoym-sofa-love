@@ -43,7 +43,6 @@ import type {
   Secret,
   SecretFinalContent,
   Song,
-  SoundCue,
   TimelineEvent,
 } from "@/types/relationship";
 
@@ -279,30 +278,6 @@ export const letters: Letter[] = [
     signature: "твой Артем",
   },
 ];
-
-/* ── Треки для отдельных моментов ───────────────────────── */
-
-/**
- * Эти треки перебивают фоновую песню и включаются сразу с припева.
- * `startAt` — секунда, с которой начинать. Значения выставлены на глаз:
- * послушай и подправь, если припев начинается не там.
- */
-export const soundCues: Record<"forgive" | "missYou", SoundCue> = {
-  // Модалка «Простишь меня?»
-  forgive: {
-    src: "/audio/lyubi-menya-lyubi.mp3",
-    startAt: 52,
-    title: "Люби меня, люби",
-    artist: "T-Fest",
-  },
-  // Кнопка «Скучаю», когда шкала дошла до 100 %
-  missYou: {
-    src: "/audio/eto-li-ne-schaste.mp3",
-    startAt: 45,
-    title: "Это ли не счастье",
-    artist: "Пицца",
-  },
-};
 
 /* ── Шёпоты между секциями ──────────────────────────────── */
 

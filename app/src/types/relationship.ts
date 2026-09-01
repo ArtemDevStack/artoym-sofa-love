@@ -138,15 +138,6 @@ export interface NextMeetingContent {
   note: string;
 }
 
-/** Трек, который перебивает фоновую песню в конкретный момент */
-export interface SoundCue {
-  src: string;
-  /** С какой секунды начинать — обычно начало припева */
-  startAt?: number;
-  title: string;
-  artist: string;
-}
-
 export interface MissYouContent {
   eyebrow: string;
   title: string;
