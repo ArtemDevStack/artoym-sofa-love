@@ -350,6 +350,30 @@ export default function Bouquet({ count = 82 }: { count?: number }) {
         <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
           <feGaussianBlur stdDeviation="7" />
         </filter>
+
+        {/*
+         * Объём даёт не заливка, а свет: этот слой кладётся поверх всего
+         * букета — подсветка сверху-слева и тёплая тень снизу-справа.
+         * Плоский набор цветов сразу становится охапкой.
+         */}
+        {/*
+         * Кладётся вторым слоем поверх каждого лепестка, не заменяя его цвет:
+         * тень у основания, блик на кончике. Один градиент на весь букет —
+         * поэтому лепестков могут быть тысячи без просадки.
+         */}
+        <linearGradient id="petalVolume" x1="0" y1="1" x2="0.12" y2="0">
+          <stop offset="0%" stopColor="#6d423f" stopOpacity="0.34" />
+          <stop offset="40%" stopColor="#6d423f" stopOpacity="0.05" />
+          <stop offset="78%" stopColor="#ffffff" stopOpacity="0.12" />
+          <stop offset="100%" stopColor="#ffffff" stopOpacity="0.38" />
+        </linearGradient>
+
+        <radialGradient id="globalLight" cx="34%" cy="24%" r="86%">
+          <stop offset="0%" stopColor="#fff4e9" stopOpacity="0.4" />
+          <stop offset="34%" stopColor="#ffffff" stopOpacity="0.06" />
+          <stop offset="72%" stopColor="#5a3733" stopOpacity="0.2" />
+          <stop offset="100%" stopColor="#3a2320" stopOpacity="0.52" />
+        </radialGradient>
       </defs>
 
       {/* ── Упаковка: слои мятой бумаги ── */}
@@ -437,6 +461,15 @@ export default function Bouquet({ count = 82 }: { count?: number }) {
           </g>
         ))}
       </g>
+      {/* Светотень поверх всего — она и «сажает» букет в объём */}
+      <ellipse
+        cx={CENTER}
+        cy={CENTER + 16}
+        rx={452}
+        ry={436}
+        fill="url(#globalLight)"
+        pointerEvents="none"
+      />
     </svg>
   );
 }
