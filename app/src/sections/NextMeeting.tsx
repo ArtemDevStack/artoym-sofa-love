@@ -82,9 +82,20 @@ export default function NextMeeting() {
       </h2>
 
       {!nextMeeting.date && (
-        <p data-nm className={styles.waiting}>
-          {nextMeeting.waitingText}
-        </p>
+        <>
+          <div data-nm className={styles.blurred}>
+            <span className={`${styles.blurValue} display mono-num`} aria-hidden="true">
+              14
+            </span>
+            <span className={styles.blurLabel}>дней</span>
+          </div>
+          <p className={styles.srOnly}>
+            Количество дней до встречи пока неизвестно.
+          </p>
+          <p data-nm className={styles.waiting}>
+            {nextMeeting.waitingText}
+          </p>
+        </>
       )}
 
       {nextMeeting.date && !left?.passed && (

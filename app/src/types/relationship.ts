@@ -112,19 +112,6 @@ export interface SecretFinalContent {
   photo: string;
 }
 
-export interface FirstMonthDay {
-  /** День месяца, 1..31 */
-  day: number;
-  /** Короткая подпись дня. Пустой день — просто тихая точка в календаре. */
-  note: string;
-  /** Необязательная её или моя фраза из переписки — дословно */
-  quote?: string;
-  /** Кому принадлежит цитата */
-  quoteBy?: "me" | "her";
-  /** Фото этого дня, напр. "/images/couple/07.jpg" */
-  photo?: string;
-}
-
 export interface MonthLetterContent {
   eyebrow: string;
   /** Подпись на конверте */
@@ -151,6 +138,41 @@ export interface NextMeetingContent {
   note: string;
 }
 
+export interface MissYouContent {
+  eyebrow: string;
+  title: string;
+  /** Текст до первого нажатия */
+  idle: string;
+  /** Подписи по мере заполнения шкалы: at — процент */
+  stages: { at: number; text: string }[];
+  /** Текст на 100% */
+  full: string;
+  /** Признание, которое всплывает модалкой, когда шкала дошла до 100% */
+  modal: {
+    eyebrow: string;
+    title: string;
+    /** Абзацы признания */
+    lines: string[];
+    /** Подпись на кнопке закрытия */
+    close: string;
+  };
+}
+
+export interface ForgiveContent {
+  eyebrow: string;
+  question: string;
+  sub: string;
+  yesLabel: string;
+  /** Подписи кнопки «Нет» — по одной на каждый побег */
+  noLabels: string[];
+  /** После скольких побегов показать честный выход */
+  escapeAfter: number;
+  escapeLabel: string;
+  thanksTitle: string;
+  thanksLines: string[];
+  closeLabel: string;
+}
+
 export interface HugsContent {
   title: string;
   hint: string;
@@ -158,14 +180,3 @@ export interface HugsContent {
   milestones: { at: number; text: string }[];
 }
 
-export interface FirstMonthContent {
-  /** ISO-дата первого дня месяца отношений, напр. "2026-08-01" */
-  startDate: string;
-  /** Сколько клеток в календаре — длина месяца */
-  length: number;
-  eyebrow: string;
-  title: string;
-  /** Подпись под календарём — без пафоса, одна-две строки */
-  outro: string[];
-  days: FirstMonthDay[];
-}

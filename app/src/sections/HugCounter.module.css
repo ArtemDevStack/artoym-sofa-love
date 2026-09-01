@@ -24,10 +24,19 @@
   border: 1px solid var(--line);
   border-radius: 999px;
   background: var(--bg-soft);
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
   transition:
     transform 0.35s var(--ease-out),
     border-color 0.45s var(--ease-out),
     background-color 0.45s var(--ease-out);
+}
+
+@media (max-width: 560px) {
+  .button {
+    padding: 28px 42px;
+  }
 }
 
 .button:hover {

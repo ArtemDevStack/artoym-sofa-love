@@ -17,10 +17,10 @@ import PhotoStack from "@/sections/PhotoStack";
 import FilmStrip from "@/sections/FilmStrip";
 import MemoryCollage from "@/sections/MemoryCollage";
 import Counter from "@/sections/Counter";
-import FirstMonth from "@/sections/FirstMonth";
 import MonthLetter from "@/sections/MonthLetter";
 import NextMeeting from "@/sections/NextMeeting";
 import HugCounter from "@/sections/HugCounter";
+import MissYou from "@/sections/MissYou";
 import OurNumbers from "@/sections/OurNumbers";
 import OurPlaces from "@/sections/OurPlaces";
 import OnlyWeUnderstand from "@/sections/OnlyWeUnderstand";
@@ -36,6 +36,7 @@ import { MediaProvider } from "@/context/MediaContext";
 import MediaModal from "@/components/MediaModal";
 import EditModeToggle from "@/components/EditModeToggle";
 import EditPinModal from "@/components/EditPinModal";
+import ForgiveModal from "@/components/ForgiveModal";
 
 type Phase = "loading" | "entry" | "story";
 
@@ -81,9 +82,9 @@ function Experience() {
           <FilmStrip />
           <MemoryCollage />
           <Counter />
-          <FirstMonth />
           <MonthLetter />
           <NextMeeting />
+          <MissYou />
           <OurNumbers />
           <OurPlaces />
           <OnlyWeUnderstand />
@@ -108,6 +109,7 @@ function Experience() {
           <MediaModal />
           <EditModeToggle />
           <EditPinModal />
+          <ForgiveModal />
         </>
       )}
     </>

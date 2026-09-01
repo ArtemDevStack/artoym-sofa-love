@@ -168,6 +168,18 @@
   color: var(--beige);
 }
 
+@media (max-width: 560px) {
+  .close {
+    min-height: 46px;
+    padding: 12px 20px;
+  }
+  .seal {
+    width: 46px;
+    height: 46px;
+    font-size: 12px;
+  }
+}
+
 @keyframes rise {
   from {
     opacity: 0;
